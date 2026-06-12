@@ -1,0 +1,85 @@
+---
+import ServicePage from '../../components/ServicePage.astro';
+
+const orgId = new URL('/#organization', Astro.site).href;
+const schema = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    name: 'Music Royalty Accounting & Copyright Administration',
+    serviceType: 'Royalty accounting',
+    description:
+      'Royalty tracking, reconciliation, and copyright administration for artists and songwriters: composition and master royalties verified, discrepancies chased down, mechanical royalties managed for independent releases.',
+    provider: { '@id': orgId },
+    areaServed: [
+      { '@type': 'AdministrativeArea', name: 'Nashville Metropolitan Area' },
+      { '@type': 'Country', name: 'United States' },
+    ],
+  },
+];
+---
+
+<ServicePage
+  title="Music Royalty Accounting | BriBiz"
+  description="Royalty tracking, reconciliation, and copyright administration — composition and master royalties verified, discrepancies chased down, mechanicals managed."
+  breadcrumbName="Royalty Accounting"
+  heroTitle="Royalty Accounting & Copyright Administration"
+  schema={schema}
+  related={[
+    ['Business management', '/services/business-management/'],
+    ['Tour accounting', '/services/tour-management/'],
+    ['Tax services', '/services/tax-services/'],
+  ]}
+>
+  <p>
+    Making money in the music industry has long been called "a river of nickels" –
+    sometimes, maybe even pennies. Your song is out in the world, and… what
+    happens next? Where does your mailbox money come from? Who collects it, and
+    why? That river runs through more hands than most artists realize, and every
+    handoff is a place where money can quietly go missing.
+  </p>
+
+  <h2>Two Copyrights, Many Checks</h2>
+  <p>
+    Behind every recording there are basically two copyrights: the Composition –
+    the song itself, typically split between songwriters and publishers – and the
+    Master, the recording, often owned by a label or an indie artist. Which one
+    you own decides which royalties you're due: mechanicals, public performance
+    through your PRO, digital performance through SoundExchange, sync fees when
+    your music lands in a film or a commercial. Each flows on its own schedule,
+    from its own collector, on its own statement.
+  </p>
+  <p>
+    The music business is one of the most complicated payment structures in the
+    world. You can have countless streams of revenue with spreadsheets and
+    statements galore. You need someone who knows the language, stays up to date,
+    and specializes in music revenue administration.
+  </p>
+
+  <h2>What We Do With All Of It</h2>
+  <p>
+    Whenever you receive royalties, we make sure they're correct. We track what
+    comes in against what should have come in, and when the numbers don't match,
+    we chase down the discrepancies. We've done in-house royalty audits and
+    brought in third-party experts to ensure that labels are paying fairly. For
+    some clients, we've gone as far as overseeing the sale of a publishing
+    catalog.
+  </p>
+  <p>
+    If your album is released independently, we also manage the mechanical
+    royalties you owe on the songs you record – so the indie freedom doesn't come
+    with a compliance headache attached.
+  </p>
+
+  <h2>Want the Map?</h2>
+  <p>
+    We put together an infographic that traces how royalties actually flow – from
+    the radio station, streaming service, or venue, through the collectors, to
+    the people who get paid. It's the chart we wish every artist saw before
+    signing anything.
+  </p>
+  <p>
+    <a href="/downloads/bribiz-royalties-infographic.pdf">Download the royalties
+    infographic (PDF)</a>
+  </p>
+</ServicePage>

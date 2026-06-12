@@ -1,0 +1,104 @@
+---
+import ServicePage from '../../components/ServicePage.astro';
+
+const orgId = new URL('/#organization', Astro.site).href;
+const schema = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    name: 'Music Business Management',
+    serviceType: 'Entertainment business management',
+    description:
+      'Day-to-day financial management for musicians and creatives: money management, income and expense tracking, bill pay, cash flow, and coordination of the whole business team.',
+    provider: { '@id': orgId },
+    areaServed: [
+      { '@type': 'AdministrativeArea', name: 'Nashville Metropolitan Area' },
+      { '@type': 'Country', name: 'United States' },
+    ],
+  },
+];
+---
+
+<ServicePage
+  title="Music Business Management for Artists & Bands | BriBiz"
+  description="What an entertainment business manager actually does: day-to-day money management, cash flow, bill pay, and keeping your whole business team on the same page."
+  breadcrumbName="Business Management"
+  heroTitle="Music Business Management"
+  schema={schema}
+  related={[
+    ['Tour accounting', '/services/tour-management/'],
+    ['Royalty accounting', '/services/royalty-accounting/'],
+    ['Tax services', '/services/tax-services/'],
+  ]}
+>
+  <p>
+    "What do you even do?" It's the question we hear most, usually from an artist
+    sitting in our office for the first time. Fair enough. Growing a business in
+    the music industry means combining the rigors of artistry with the stress of
+    entrepreneurship – and somewhere between writing, recording, and touring,
+    somebody has to run the business.
+  </p>
+  <p>
+    That's us. You make your music. We make sure the business underneath it
+    actually works.
+  </p>
+
+  <h2>The Day-to-Day</h2>
+  <p>
+    Think about the loops running in the back of your brain late at night.
+    <em>Did I pay that bill yet? Should I be filing my quarterlies? Who owes me
+    money? Did I miss a royalty check?</em> Our job is to let you turn those
+    loops off. On a day-to-day basis, your business manager will:
+  </p>
+  <ul>
+    <li>Manage your money and maintain healthy cash flow</li>
+    <li>Track income and expenses, and reconcile the accounts</li>
+    <li>Collect every payment owed to you</li>
+    <li>Pay every bill on time</li>
+    <li>Deal with vendors and keep financial communication flowing</li>
+    <li>Keep you up to speed with regular reports</li>
+  </ul>
+  <p>
+    The detail-work is where we shine. For some clients we've overseen the sale
+    of a publishing catalog; for others we've <a
+    href="/services/royalty-accounting/">tracked royalties and chased down
+    discrepancies</a> in payments. The goal is always the same: a music business
+    that runs, with money flowing the way it should.
+  </p>
+
+  <h2>The Center of the Wheel</h2>
+  <p>
+    We often describe ourselves as the hub of a wheel. Your CPA, your insurance
+    agent, your royalty agent, your financial adviser – how often do they all sit
+    in the same room and have a productive conversation about you and your goals?
+    The answer is never. We exist to be that conversation.
+  </p>
+  <p>
+    And unlike firms that keep everything in-house, we prefer to stay free
+    agents, hiring the best for each client. Why limit ourselves to one tax
+    accountant when one client is planning for retirement, one has to account for
+    global earnings, and one runs a nonprofit? Need a CPA? We know someone. A new
+    insurance provider? We know someone for that, too – and we'll sit in the
+    meetings with you to make sure it's a good fit.
+  </p>
+
+  <h2>Business Manager, Artist Manager, Bookkeeper – Who Does What?</h2>
+  <p>
+    You likely need both a business manager and an artist manager; many artist
+    managers won't work with an artist who doesn't have one. In corporate terms:
+    you're the Owner. Your artist manager works like a COO, creating
+    opportunities – tours, sponsorships, partnerships. Your business manager is
+    the CFO, managing the money and the details so you never stall.
+  </p>
+  <p>
+    A bookkeeper, on the other hand, is almost entirely reactive – recording and
+    settling transactions after you've already made the decisions. A business
+    manager is proactive: we catch everything that's happened, assess what's
+    happening now, and plan for what's coming.
+  </p>
+  <p>
+    One thing we won't do: manage your career or make creative decisions. We're
+    here to organize your business, maximize your financial health, and give you
+    the peace of mind to focus on what you do best. The creative calls are yours.
+  </p>
+</ServicePage>

@@ -1,0 +1,82 @@
+---
+import ServicePage from '../../components/ServicePage.astro';
+
+const orgId = new URL('/#organization', Astro.site).href;
+const schema = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    name: 'Tour Accounting & Budget Management',
+    serviceType: 'Tour accounting',
+    description:
+      'Tour budget preparation and management for touring artists: projections for wages, per diems, hotels, travel, equipment, rentals and commissions, payroll on the road, and reconciliation of road accounts.',
+    provider: { '@id': orgId },
+    areaServed: [
+      { '@type': 'AdministrativeArea', name: 'Nashville Metropolitan Area' },
+      { '@type': 'Country', name: 'United States' },
+    ],
+  },
+];
+---
+
+<ServicePage
+  title="Tour Accounting & Budget Management | BriBiz"
+  description="Tour budgets, payroll, and cash flow for touring artists — projections for wages, per diems, travel, gear, and commissions, and reconciliation back home."
+  breadcrumbName="Tour Management"
+  heroTitle="Tour Accounting & Budget Management"
+  schema={schema}
+  related={[
+    ['Business management', '/services/business-management/'],
+    ['Royalty accounting', '/services/royalty-accounting/'],
+    ['Tax services', '/services/tax-services/'],
+  ]}
+>
+  <p>
+    We know exactly what it's like to be stuck at a gas station in Idaho and
+    needing money–fast. Before BriBiz was a firm, we were on the road ourselves,
+    playing thousands of shows and handling the band's finances from the back of
+    the bus. Touring is still the heart of most artists' income – and it's also
+    where the money gets messiest.
+  </p>
+
+  <h2>Before the Tour: Projections &amp; Budgets</h2>
+  <p>
+    A tour should never be a financial surprise. We create short and long-term
+    projections and budgets for touring, including wages, per diems, hotels,
+    travel, equipment, rentals and commissions – so you know what the run should
+    make, what it will cost, and where the break-even line sits before the first
+    van door closes.
+  </p>
+
+  <h2>On the Road</h2>
+  <p>
+    While you're on tour, your artist manager is focused on revenue and exposure.
+    But life back home is still happening, and somebody has to think about it.
+    That's where we come in: the regular "adulting" that doesn't stop for a tour –
+    bank runs, making sure all accounts are flowing as they should, managing
+    payroll for your 1099 crew. We especially shine at the scrappy cash flow
+    details that come up on the road and back at home. We've been there
+    ourselves.
+  </p>
+  <p>
+    Day to day, that looks like keeping wages and per diems moving, paying the
+    bills that don't pause just because you're in another time zone, and keeping
+    enough cash where it needs to be so a breakdown in Idaho is an inconvenience,
+    not a crisis.
+  </p>
+
+  <h2>After the Last Show</h2>
+  <p>
+    When the trailer is unpacked, we reconcile the bank, road and royalty
+    accounts – making sure the records and financial statements match what
+    actually happened out there, every settlement is accounted for, and the tour's
+    real numbers are in front of you. Those numbers feed straight back into the
+    next budget, so every tour gets smarter than the last one.
+  </p>
+  <p>
+    Touring money also sets up the rest of your year – it affects your
+    <a href="/services/tax-services/">taxes across every state you played</a> and
+    the cash flow plan that carries you between runs. Because we handle the whole
+    business, none of that falls through the cracks.
+  </p>
+</ServicePage>

@@ -12,6 +12,7 @@
     { "source": "/case-studies/", "destination": "/", "permanent": true },
     { "source": "/thanks/", "destination": "/", "permanent": true },
     { "source": "/posts/", "destination": "/", "permanent": true },
+    { "source": "/services/", "destination": "/whatwedo/", "permanent": true },
     { "source": "/sitemap.xml", "destination": "/sitemap-index.xml", "permanent": true },
     { "source": "/sitemap_index.xml", "destination": "/sitemap-index.xml", "permanent": true },
     { "source": "/wp-sitemap.xml", "destination": "/sitemap-index.xml", "permanent": true },

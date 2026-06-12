@@ -82,6 +82,13 @@ const services = [
   <section class="services">
     <div class="container">
       <h2 class="section-heading">Our Services</h2>
+      <p class="services-deeper">
+        Want the full picture? Go deeper on
+        <a href="/services/business-management/">business management</a>,
+        <a href="/services/tour-management/">tour accounting</a>,
+        <a href="/services/royalty-accounting/">royalty accounting</a>, and
+        <a href="/services/tax-services/">tax services</a>.
+      </p>
       <div class="flip-grid">
         {services.map((service) => (
           <button class="flip-card" data-flip aria-expanded="false">
@@ -142,7 +149,18 @@ const services = [
 
   .services .section-heading {
     text-align: center;
-    margin-bottom: 28px;
+    margin-bottom: 12px;
+  }
+
+  .services-deeper {
+    text-align: center;
+    font-size: 17px;
+    color: var(--color-text-muted);
+    margin: 0 0 28px;
+  }
+
+  .services-deeper a {
+    text-decoration: underline;
   }
 
   .flip-grid {

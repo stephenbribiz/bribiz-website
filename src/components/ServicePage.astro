@@ -1,0 +1,99 @@
+---
+/**
+ * Shared shell for the /services/* pages: hero, scoped typography for the
+ * slotted content, related-services row, and the consultation call-out.
+ * Each page passes its own Service JSON-LD via the schema prop.
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from './PageHero.astro';
+import CalloutBox from './CalloutBox.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  breadcrumbName: string;
+  heroTitle: string;
+  schema: Record<string, unknown>[];
+  /** Other service pages to suggest, as [label, href] pairs. */
+  related: [string, string][];
+}
+
+const { title, description, breadcrumbName, heroTitle, schema, related } = Astro.props;
+---
+
+<BaseLayout {title} {description} {breadcrumbName} {schema}>
+  <PageHero title={heroTitle} />
+
+  <article class="svc">
+    <div class="container svc-body">
+      <slot />
+    </div>
+  </article>
+
+  <section class="svc-related">
+    <div class="container">
+      <p>
+        More ways we help:
+        {related.map(([label, href], i) => (
+          <>
+            {i > 0 && ' · '}
+            <a href={href}>{label}</a>
+          </>
+        ))}
+        {' · '}
+        <a href="/whatwedo/">everything we do</a>
+      </p>
+    </div>
+  </section>
+
+  <CalloutBox />
+</BaseLayout>
+
+<style>
+  .svc {
+    padding: 64px 0 40px;
+  }
+
+  .svc-body {
+    max-width: 820px;
+  }
+
+  .svc-body :global(p),
+  .svc-body :global(li) {
+    font-size: 19px;
+    color: var(--color-text-muted);
+  }
+
+  .svc-body :global(a) {
+    text-decoration: underline;
+  }
+
+  .svc-body :global(h2) {
+    font-size: 28px;
+    margin-top: 1.6em;
+  }
+
+  .svc-body :global(h2:first-child) {
+    margin-top: 0;
+  }
+
+  .svc-body :global(ul) {
+    padding-left: 24px;
+    margin: 0 0 1.2em;
+  }
+
+  .svc-body :global(li) {
+    margin-bottom: 6px;
+  }
+
+  .svc-related {
+    padding: 8px 0 56px;
+  }
+
+  .svc-related p {
+    text-align: center;
+    font-size: 17px;
+    color: var(--color-text-muted);
+    margin: 0;
+  }
+</style>

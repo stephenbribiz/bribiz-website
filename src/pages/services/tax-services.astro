@@ -1,0 +1,75 @@
+---
+import ServicePage from '../../components/ServicePage.astro';
+
+const orgId = new URL('/#organization', Astro.site).href;
+const schema = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    name: 'Tax Services for Entertainers',
+    serviceType: 'Entertainment tax services',
+    description:
+      'Tax management for musicians and entertainers: filings, sales tax, non-resident withholding for states and foreign countries, quarterly planning, and long-term tax strategy.',
+    provider: { '@id': orgId },
+    areaServed: [
+      { '@type': 'AdministrativeArea', name: 'Nashville Metropolitan Area' },
+      { '@type': 'Country', name: 'United States' },
+    ],
+  },
+];
+---
+
+<ServicePage
+  title="Tax Services for Entertainers & Musicians | BriBiz"
+  description="Tax filings, planning, and multi-state and international withholding for musicians and entertainers — from quarterlies to long-term strategy."
+  breadcrumbName="Tax Services"
+  heroTitle="Tax Services for Entertainers"
+  schema={schema}
+  related={[
+    ['Business management', '/services/business-management/'],
+    ['Tour accounting', '/services/tour-management/'],
+    ['Royalty accounting', '/services/royalty-accounting/'],
+  ]}
+>
+  <p>
+    Too many artists meet their tax bill the hard way: a surprise five-figure
+    number in April because nobody told them freelancers are supposed to set
+    money aside all year. If you're self-employed – and as a working musician,
+    you almost certainly are – taxes aren't a season. They're a system that runs
+    all year, and somebody needs to be running it.
+  </p>
+
+  <h2>Income That Never Sits Still</h2>
+  <p>
+    A salary makes taxes simple. Music doesn't. You might make $30,000 one month
+    and nothing the next, with royalties, show money, and session work all
+    arriving on different schedules. We manage the system underneath: setting
+    aside the right slice as money comes in, keeping your quarterly estimated
+    payments on track, and making sure the payroll tax documentation for your
+    business and crew is complete and up to date – so tax season is a checkpoint,
+    not a panic.
+  </p>
+
+  <h2>Every State You Play, Every Country You Tour</h2>
+  <p>
+    Touring artists don't file like normal businesses. Play a show in another
+    state and that state may want its cut; tour internationally and foreign
+    withholding enters the picture. We manage filings, sales tax, and
+    non-resident withholding taxes for states and foreign countries – the part of
+    <a href="/services/tour-management/">touring</a> nobody puts on the poster.
+    We've handled compliance and immigration paperwork issues for clients,
+    keeping everything above board so there are no surprises down the road.
+  </p>
+
+  <h2>Planning, Not Just Filing</h2>
+  <p>
+    Filing what happened last year is the floor. The real value is in planning
+    what happens next: structuring toward a better long-term tax situation,
+    thinking through how your band or business entity is set up, and allocating
+    money ahead of the bill instead of after it. And because we stay free agents
+    rather than keeping one accountant in-house, we'll connect you with the right
+    tax specialist for your situation – whether you're planning for retirement,
+    accounting for global earnings, or running a nonprofit – and sit in those
+    meetings with you.
+  </p>
+</ServicePage>

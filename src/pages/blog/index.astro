@@ -3,6 +3,9 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageHero from '../../components/PageHero.astro';
 import { getCollection } from 'astro:content';
 import { Image } from 'astro:assets';
+import { BLOG_ENABLED } from '../../config';
+
+if (!BLOG_ENABLED) return Astro.redirect('/');
 
 const posts = (await getCollection('blog', ({ data }) => !data.archived)).sort(
   (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()

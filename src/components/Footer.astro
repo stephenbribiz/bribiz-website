@@ -2,6 +2,7 @@
 import { Image } from 'astro:assets';
 import logoWhite from '../assets/logo-white.png';
 import bgBuilding from '../assets/backgrounds/bg-building.jpg';
+import { BLOG_ENABLED } from '../config';
 
 const year = new Date().getFullYear();
 
@@ -9,7 +10,7 @@ const footerNav = [
   { label: 'Home', href: '/' },
   { label: 'What We Do', href: '/whatwedo/' },
   { label: 'Who We Are', href: '/who-we-are/' },
-  { label: 'Blog', href: '/blog/' },
+  ...(BLOG_ENABLED ? [{ label: 'Blog', href: '/blog/' }] : []),
   { label: 'Schedule Free Conversation', href: '/book-a-consultation/' },
   { label: 'Contact', href: '/contact/' },
 ];

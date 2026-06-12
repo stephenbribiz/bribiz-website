@@ -1,12 +1,13 @@
 ---
 import { Image } from 'astro:assets';
 import logo from '../assets/logo.png';
+import { BLOG_ENABLED } from '../config';
 
 const navItems = [
   { label: 'Home', href: '/' },
   { label: 'What We Do', href: '/whatwedo/' },
   { label: 'Who We Are', href: '/who-we-are/' },
-  { label: 'Blog', href: '/blog/' },
+  ...(BLOG_ENABLED ? [{ label: 'Blog', href: '/blog/' }] : []),
   { label: 'Schedule Free Conversation', href: '/book-a-consultation/' },
   { label: 'Contact', href: '/contact/' },
 ];

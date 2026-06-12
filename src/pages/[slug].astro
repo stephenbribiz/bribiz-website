@@ -5,8 +5,10 @@ import type { GetStaticPaths } from 'astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { getCollection, render } from 'astro:content';
 import { Image } from 'astro:assets';
+import { BLOG_ENABLED } from '../config';
 
 export const getStaticPaths = (async () => {
+  if (!BLOG_ENABLED) return [];
   const posts = await getCollection('blog');
   return posts.map((post) => ({
     params: { slug: post.id },

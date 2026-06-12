@@ -1,0 +1,200 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import VideoHero from '../components/VideoHero.astro';
+import BlogTeaser from '../components/BlogTeaser.astro';
+import ConsultCta from '../components/ConsultCta.astro';
+import TestimonialSlider from '../components/TestimonialSlider.astro';
+import bgOrange from '../assets/backgrounds/bg-orange-overlay.jpg';
+import transWhiteTail from '../assets/backgrounds/trans-white-tail-l.png';
+import transWhiteArrow from '../assets/backgrounds/trans-white-arrow-r-f7.png';
+
+// The discontinued "Music & Money Newsletter" slot — Stephen picks the
+// replacement from the dev preview. 'A' = full-width blog teaser cards,
+// 'B' = blog + consultation CTA two-column layout.
+const NEWSLETTER_VARIANT: 'A' | 'B' = 'A';
+
+const businessServices = [
+  'Bookkeeping & Accounts',
+  'Cash Flow Management',
+  'Tour Budget Preparation & Management',
+  'Payroll',
+  'Copyright Administration',
+  'Reconciliation of Bank, Road & Royalty Accounts',
+];
+
+const financialServices = [
+  'Tax Preparation Services',
+  'Tax Planning & Advising',
+  'International Tax Management',
+  'Wealth Management',
+  'Preparation of Personal and Business Financial Statements',
+];
+---
+
+<BaseLayout
+  title="Home - BriBiz"
+  description="Business Management for Creatives. Helping you gain control over your finances and grow your creative business - without losing your soul."
+>
+  <VideoHero />
+
+  <section class="brand-story">
+    <div class="container brand-story-inner">
+      <h2>
+        An Artist should have a healthy &amp; communicative relationship with the
+        people managing their money. Right? We think so, too.
+      </h2>
+      {/* TODO(Stephen): original copy said "set out 11 years ago" (written ~2017).
+          Reworded to "in 2006" to stay evergreen — confirm or supply new copy. */}
+      <p>
+        Having lived as a recording Artist on a major label, BriBiz founder Brian
+        Smith set out in 2006 to bridge the gap between Entertainers and their
+        Businesses, working to help them thrive creatively AND grow financially.
+        Since then, BriBiz has helped steward the careers of many chart-top
+        musicians and successful creatives, touching every corner of the globe.
+      </p>
+    </div>
+  </section>
+
+  <section class="what-we-do" style={`background-image: url(${bgOrange.src})`}>
+    <img src={transWhiteTail.src} alt="" class="section-divider divider-top" />
+    <div class="container what-we-do-inner">
+      <h2 class="section-heading">Business &amp; Financial Management</h2>
+      <p class="what-we-do-intro">
+        From day-to-day financial management to bookkeeping and copyrights, we help
+        Entertainers and Creatives reach their business goals, combining strong
+        financial principles with first-hand knowledge of life on and off the road.
+      </p>
+      <div class="services-grid">
+        <div class="services-col">
+          <h3>Business Management</h3>
+          <ul>
+            {businessServices.map((s) => <li>{s}</li>)}
+          </ul>
+        </div>
+        <div class="services-col">
+          <h3>Financial Management</h3>
+          <ul>
+            {financialServices.map((s) => <li>{s}</li>)}
+          </ul>
+        </div>
+      </div>
+      <a href="/whatwedo/" class="btn">Learn More</a>
+    </div>
+    <img src={transWhiteArrow.src} alt="" class="section-divider divider-bottom" />
+  </section>
+
+  {NEWSLETTER_VARIANT === 'A' ? <BlogTeaser /> : <ConsultCta />}
+
+  <TestimonialSlider />
+</BaseLayout>
+
+<style>
+  .brand-story {
+    padding: 80px 0 64px;
+  }
+
+  .brand-story-inner {
+    max-width: 880px;
+    text-align: center;
+  }
+
+  .brand-story h2 {
+    font-size: 30px;
+    margin-bottom: 24px;
+  }
+
+  .brand-story p {
+    font-size: 19px;
+    color: var(--color-text-muted);
+  }
+
+  .what-we-do {
+    position: relative;
+    background-color: var(--color-orange);
+    background-size: cover;
+    background-position: center;
+    color: var(--color-white);
+    text-align: center;
+  }
+
+  .what-we-do-inner {
+    padding-top: 56px;
+    padding-bottom: 64px;
+  }
+
+  .what-we-do h2,
+  .what-we-do h3 {
+    color: var(--color-white);
+  }
+
+  .what-we-do-intro {
+    max-width: 820px;
+    margin: 0 auto 44px;
+    font-size: 19px;
+  }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    max-width: 900px;
+    margin: 0 auto 44px;
+    text-align: left;
+  }
+
+  .services-col h3 {
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 18px;
+  }
+
+  .services-col ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .services-col li {
+    padding: 9px 0 9px 34px;
+    position: relative;
+    font-size: 18px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.25);
+  }
+
+  .services-col li:last-child { border-bottom: none; }
+
+  /* check circle marker, matching the original checklist icons */
+  .services-col li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: var(--color-white);
+    color: var(--color-orange);
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 22px;
+    text-align: center;
+  }
+
+  .what-we-do .btn {
+    background: var(--color-white);
+    color: var(--color-orange-dark);
+  }
+
+  .what-we-do .btn:hover {
+    background: var(--color-gray-light);
+  }
+
+  .divider-top { transform: translateY(-1px); }
+  .divider-bottom { transform: translateY(1px); }
+
+  @media (max-width: 800px) {
+    .services-grid { grid-template-columns: 1fr; }
+  }
+</style>

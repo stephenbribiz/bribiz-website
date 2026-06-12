@@ -1,0 +1,154 @@
+---
+/**
+ * Shared Web3Forms wrapper: handles the access key, honeypot, AJAX submit,
+ * and success/error states. Field markup comes in via the default slot.
+ *
+ * The access key lives in PUBLIC_WEB3FORMS_KEY (.env / Vercel env var) and is
+ * tied to the primary inbox in the Web3Forms dashboard; the second recipient
+ * is CC'd via the ccemail field below.
+ */
+interface Props {
+  subject: string;
+  submitLabel: string;
+}
+
+const { subject, submitLabel } = Astro.props;
+const accessKey = import.meta.env.PUBLIC_WEB3FORMS_KEY ?? 'MISSING_WEB3FORMS_KEY';
+
+// TODO(Stephen): confirm which inbox the Web3Forms access key is created on;
+// the other one goes here as CC.
+const ccEmail = 'brian@bribiz.net';
+---
+
+<form class="w3-form" method="POST" action="https://api.web3forms.com/submit" data-web3form>
+  <input type="hidden" name="access_key" value={accessKey} />
+  <input type="hidden" name="subject" value={subject} />
+  <input type="hidden" name="from_name" value="bribiz.net" />
+  <input type="hidden" name="ccemail" value={ccEmail} />
+  <!-- Honeypot: hidden from humans; bots that tick it are silently discarded -->
+  <input type="checkbox" name="botcheck" class="w3-botcheck" tabindex="-1" autocomplete="off" />
+
+  <slot />
+
+  <button type="submit" class="btn w3-submit">{submitLabel}</button>
+
+  <p class="w3-status w3-success" hidden>
+    Thanks — your message is on its way. We'll be in touch soon!
+  </p>
+  <p class="w3-status w3-error" hidden>
+    Something went wrong sending your message. Please try again, or email us
+    directly at <a href="mailto:info@bribiz.net">info@bribiz.net</a>.
+  </p>
+</form>
+
+<script>
+  document.querySelectorAll<HTMLFormElement>('[data-web3form]').forEach((form) => {
+    const submitBtn = form.querySelector<HTMLButtonElement>('.w3-submit')!;
+    const success = form.querySelector<HTMLElement>('.w3-success')!;
+    const error = form.querySelector<HTMLElement>('.w3-error')!;
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      success.hidden = true;
+      error.hidden = true;
+      submitBtn.disabled = true;
+      const originalLabel = submitBtn.textContent;
+      submitBtn.textContent = 'Sending…';
+
+      try {
+        const response = await fetch(form.action, {
+          method: 'POST',
+          body: new FormData(form),
+          headers: { Accept: 'application/json' },
+        });
+        const result = await response.json();
+        if (result.success) {
+          form.reset();
+          success.hidden = false;
+        } else {
+          error.hidden = false;
+        }
+      } catch {
+        error.hidden = false;
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = originalLabel;
+      }
+    });
+  });
+</script>
+
+<style>
+  .w3-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .w3-botcheck {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .w3-form :global(label) {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 15px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .w3-form :global(input[type='text']),
+  .w3-form :global(input[type='email']),
+  .w3-form :global(input[type='tel']),
+  .w3-form :global(textarea) {
+    font-family: var(--font-body);
+    font-size: 17px;
+    padding: 12px 14px;
+    border: 1px solid var(--color-border);
+    border-radius: 3px;
+    background: var(--color-white);
+    color: var(--color-text);
+  }
+
+  .w3-form :global(input:focus),
+  .w3-form :global(textarea:focus) {
+    outline: 2px solid var(--color-orange);
+    outline-offset: 0;
+    border-color: var(--color-orange);
+  }
+
+  .w3-submit {
+    align-self: flex-start;
+  }
+
+  .w3-submit:disabled {
+    opacity: 0.6;
+    cursor: wait;
+  }
+
+  .w3-status {
+    margin: 0;
+    padding: 14px 16px;
+    border-radius: 3px;
+    font-size: 16px;
+  }
+
+  .w3-success {
+    background: #eef7e2;
+    border: 1px solid var(--color-green);
+    color: #4a6b1d;
+  }
+
+  .w3-error {
+    background: #fdeeee;
+    border: 1px solid #e08585;
+    color: #8c2f2f;
+  }
+</style>

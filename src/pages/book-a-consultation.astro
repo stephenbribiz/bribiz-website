@@ -1,0 +1,113 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import LeadForm from '../components/LeadForm.astro';
+import { Image } from 'astro:assets';
+import eliasFull from '../assets/testimonials/elias-dummer-full.jpg';
+---
+
+<BaseLayout
+  title="Schedule Free Conversation - BriBiz"
+  description="We truly believe that an Artist should have a healthy & communicative relationship with the people managing their money - and that begins with trust. Get started today with a free, no obligation consultation."
+>
+  <PageHero title="Schedule Free Conversation" />
+
+  <section class="consult">
+    <div class="container consult-grid">
+      <div class="consult-copy">
+        <p class="consult-lead">
+          We truly believe that an Artist should have a healthy &amp;
+          communicative relationship with the people managing their money – and
+          that begins with trust. Wherever you are in your career, we're confident
+          that we can help you organize your business and thrive as an artist
+          without having to feel like you're relinquishing control. Get started
+          today with a free, no obligation, consultation as we look together at
+          your business goals and how we could help you achieve them.
+        </p>
+        <figure class="consult-testimonial">
+          <Image src={eliasFull} alt="Elias Dummer" width={120} height={120} class="consult-avatar" />
+          <blockquote>
+            "As soon as our song hit the radio, we quickly found ourselves having
+            to 'build the plane while it flies' – and in another country, which
+            meant we simply didn't have access to some of the financial options
+            usually available to startups. With BriBiz' help, we were able to
+            build a sustainable business, manage corporate taxes, and go from zero
+            to what was essentially a thriving bootstrapped touring business in a
+            short period of time. Brian always understood what it felt like to be
+            out on the road with a family back home – and if needs arose, they
+            were on it every time. This loyalty and flexibility made for a great
+            working relationship that lasted our entire career. I can't recommend
+            them highly enough."
+          </blockquote>
+          <figcaption>
+            <strong>Elias Dummer</strong> · The City Harmonic
+          </figcaption>
+        </figure>
+      </div>
+      <div class="consult-form">
+        <h2>Enter Contact Info</h2>
+        <LeadForm />
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .consult {
+    padding: 64px 0 80px;
+  }
+
+  .consult-grid {
+    display: grid;
+    grid-template-columns: 1.6fr 1fr;
+    gap: 56px;
+    align-items: start;
+  }
+
+  .consult-lead {
+    font-size: 19px;
+    color: var(--color-text-muted);
+    margin-bottom: 40px;
+  }
+
+  .consult-testimonial {
+    margin: 0;
+    background: var(--color-gray-section);
+    border-radius: 6px;
+    padding: 32px 34px;
+  }
+
+  :global(.consult-avatar) {
+    border-radius: 50%;
+    margin-bottom: 18px;
+  }
+
+  .consult-testimonial blockquote {
+    margin: 0 0 16px;
+    font-style: italic;
+    color: var(--color-text-muted);
+    line-height: 1.7;
+  }
+
+  .consult-testimonial figcaption {
+    font-family: var(--font-heading);
+    color: var(--color-text);
+  }
+
+  .consult-form {
+    background: var(--color-white);
+    border: 1px solid #ebeaea;
+    border-radius: 6px;
+    padding: 32px 30px 36px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+  }
+
+  .consult-form h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+
+  @media (max-width: 900px) {
+    .consult-grid { grid-template-columns: 1fr; }
+  }
+</style>

@@ -1,0 +1,115 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import ContactForm from '../components/ContactForm.astro';
+
+// Keyless Google Maps embed for the office address
+const mapSrc =
+  'https://www.google.com/maps?q=135+5th+Ave+S+Suite+240,+Franklin,+TN+37064&output=embed&z=14';
+---
+
+<BaseLayout
+  title="Contact - BriBiz"
+  description="Contact BriBiz Entertainment Business Management. Office: 135 5th Ave S, Suite 240, Franklin, TN 37064. Phone: 615-390-7083."
+>
+  <PageHero title="Contact Us" />
+
+  <section class="contact">
+    <div class="container contact-grid">
+      <div class="contact-info">
+        <iframe
+          src={mapSrc}
+          title="Map to the BriBiz office"
+          width="100%"
+          height="320"
+          style="border:0"
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+        ></iframe>
+
+        {/* TODO(Stephen): confirm fax number and both addresses are still current. */}
+        <div class="addresses">
+          <div>
+            <h3>Office Address</h3>
+            <address>
+              135 5th Ave S<br />
+              Suite 240<br />
+              Franklin, TN 37064
+            </address>
+            <p>
+              Phone: <a href="tel:615-390-7083">615-390-7083</a><br />
+              Fax: 615-887-0284
+            </p>
+          </div>
+          <div>
+            <h3>Mailing Address</h3>
+            <address>
+              188 Front St<br />
+              Suite 116-44<br />
+              Franklin, TN 37064
+            </address>
+            <p>
+              Email: <a href="mailto:info@bribiz.net">info@bribiz.net</a>
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="contact-form">
+        <h2>Send Us a Message</h2>
+        <ContactForm />
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .contact {
+    padding: 64px 0 80px;
+  }
+
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 56px;
+    align-items: start;
+  }
+
+  .contact-info iframe {
+    border-radius: 6px;
+    margin-bottom: 28px;
+  }
+
+  .addresses {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+
+  .addresses h3 {
+    font-size: 20px;
+    margin-bottom: 8px;
+  }
+
+  .addresses address {
+    font-style: normal;
+    color: var(--color-text-muted);
+    margin-bottom: 10px;
+    line-height: 1.7;
+  }
+
+  .addresses p { color: var(--color-text-muted); }
+
+  .contact-form h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+
+  @media (max-width: 900px) {
+    .contact-grid { grid-template-columns: 1fr; }
+  }
+
+  @media (max-width: 560px) {
+    .addresses { grid-template-columns: 1fr; }
+  }
+</style>

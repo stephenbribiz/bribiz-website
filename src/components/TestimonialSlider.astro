@@ -1,0 +1,156 @@
+---
+import { Image } from 'astro:assets';
+import eliasDummer from '../assets/testimonials/elias-dummer.jpg';
+import stephenProctor from '../assets/testimonials/stephen-proctor.png';
+import jackiePatillo from '../assets/testimonials/jackie-patillo.png';
+
+const testimonials = [
+  {
+    name: 'Elias Dummer',
+    role: 'The City Harmonic',
+    image: eliasDummer,
+    quote:
+      "As soon as our song hit the radio, we quickly found ourselves having to 'build the plane while it flies' – and in another country, which meant we simply didn't have access to some of the financial options usually available to startups. With the help of BriBiz we were able to build a sustainable business, manage corporate taxes, and go from zero to what was essentially a thriving bootstrapped touring business in a short period of time. Brian always understood what it felt like to be trapped in Idaho, or for the family to need money to move while we were away – and they were on it every time. This loyalty and flexibility made for a great working relationship that lasted our entire career. I can't recommend them highly enough.",
+  },
+  {
+    name: 'Stephen Proctor',
+    role: 'Creative & Entrepreneur',
+    image: stephenProctor,
+    quote:
+      "It takes a unique skillset to work with and manage artists and creative types. We can wander all over the place–financially, emotionally, and geographically. Left unchecked, we can become our own worst enemy. Especially when it comes to building a consistent and sustainable business! Brian understands this reality well because he is an artist himself. He's lived the life of a touring musician and has witnessed firsthand the unique challenges in building a business based on creativity and entertainment. This, more than anything, gives the BriBiz team an incredible advantage when working with artists. My work-life continues to be a wild rollercoaster ride–and I'm more than ok with this. But BriBiz keeps this rollercoaster from flying off the rails, because when that happens, the entire park shuts down and nobody has any fun.",
+  },
+  {
+    name: 'Jackie Patillo',
+    role: 'President and Executive Director, Gospel Music Association',
+    image: jackiePatillo,
+    /* TODO(Stephen): quote names "Emily Davis" as the account rep — confirm she is still with the firm or trim that clause. */
+    quote:
+      "The Gospel Music Association has benefitted greatly from the expertise and care BriBiz has provided. The leadership is insightful and our account representative goes above and beyond to meet our day to day needs. BriBiz has served the GMA for many years and we couldn't live without their skill and support.",
+  },
+];
+---
+
+<section class="testimonials">
+  <div class="container">
+    <h2 class="section-heading">What Our Clients Have To Say</h2>
+    <div class="slider" data-testimonial-slider>
+      {testimonials.map((t, i) => (
+        <figure class="slide" data-slide hidden={i !== 0}>
+          <blockquote>{t.quote}</blockquote>
+          <figcaption>
+            <Image src={t.image} alt={t.name} width={80} height={80} class="slide-avatar" />
+            <div>
+              <strong>{t.name}</strong>
+              <span>{t.role}</span>
+            </div>
+          </figcaption>
+        </figure>
+      ))}
+      <div class="slider-dots" role="tablist" aria-label="Testimonials">
+        {testimonials.map((t, i) => (
+          <button
+            data-dot
+            class:list={['dot', { active: i === 0 }]}
+            aria-label={`Show testimonial from ${t.name}`}
+          ></button>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  document.querySelectorAll('[data-testimonial-slider]').forEach((slider) => {
+    const slides = slider.querySelectorAll<HTMLElement>('[data-slide]');
+    const dots = slider.querySelectorAll<HTMLButtonElement>('[data-dot]');
+    let current = 0;
+    let timer: number;
+
+    const show = (index: number) => {
+      current = index;
+      slides.forEach((s, i) => (s.hidden = i !== index));
+      dots.forEach((d, i) => d.classList.toggle('active', i === index));
+    };
+
+    const startAuto = () => {
+      window.clearInterval(timer);
+      timer = window.setInterval(() => show((current + 1) % slides.length), 15000);
+    };
+
+    dots.forEach((dot, i) =>
+      dot.addEventListener('click', () => {
+        show(i);
+        startAuto();
+      })
+    );
+
+    startAuto();
+  });
+</script>
+
+<style>
+  .testimonials {
+    background: var(--color-gray-section);
+    padding: 72px 0 64px;
+  }
+
+  .slider {
+    max-width: 860px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .slide blockquote {
+    margin: 0 0 28px;
+    font-size: 19px;
+    font-style: italic;
+    line-height: 1.7;
+    color: var(--color-text-muted);
+  }
+
+  .slide figcaption {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    text-align: left;
+  }
+
+  .slide figcaption div {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .slide figcaption strong {
+    font-family: var(--font-heading);
+    font-size: 18px;
+  }
+
+  .slide figcaption span {
+    font-size: 15px;
+    color: var(--color-text-muted);
+  }
+
+  :global(.slide-avatar) {
+    border-radius: 50%;
+  }
+
+  .slider-dots {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 32px;
+  }
+
+  .dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    border: none;
+    background: var(--color-border);
+    cursor: pointer;
+    padding: 0;
+  }
+
+  .dot.active { background: var(--color-orange); }
+</style>

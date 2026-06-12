@@ -1,0 +1,185 @@
+---
+import { Image } from 'astro:assets';
+import logo from '../assets/logo.png';
+
+const navItems = [
+  { label: 'Home', href: '/' },
+  { label: 'What We Do', href: '/whatwedo/' },
+  { label: 'Who We Are', href: '/who-we-are/' },
+  { label: 'Blog', href: '/blog/' },
+  { label: 'Schedule Free Conversation', href: '/book-a-consultation/' },
+  { label: 'Contact', href: '/contact/' },
+];
+
+const currentPath = Astro.url.pathname;
+---
+
+<header class="site-header">
+  <div class="top-bar">
+    <div class="container top-bar-inner">
+      <a href="tel:615-390-7083">615-390-7083</a>
+      <span class="top-bar-sep">|</span>
+      <a href="mailto:info@bribiz.net">info@bribiz.net</a>
+    </div>
+  </div>
+  <div class="main-bar">
+    <div class="container main-bar-inner">
+      <a href="/" class="logo-link" aria-label="BriBiz home">
+        <Image src={logo} alt="BriBiz" width={215} height={80} loading="eager" />
+      </a>
+      <button class="nav-toggle" aria-expanded="false" aria-controls="primary-nav" aria-label="Open menu">
+        <span class="nav-toggle-bar"></span>
+        <span class="nav-toggle-bar"></span>
+        <span class="nav-toggle-bar"></span>
+      </button>
+      <nav id="primary-nav" class="primary-nav" aria-label="Main">
+        <ul>
+          {navItems.map((item) => (
+            <li>
+              <a
+                href={item.href}
+                aria-current={currentPath === item.href ? 'page' : undefined}
+              >
+                {item.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </nav>
+    </div>
+  </div>
+</header>
+
+<script>
+  const toggle = document.querySelector('.nav-toggle');
+  const nav = document.getElementById('primary-nav');
+  toggle?.addEventListener('click', () => {
+    const open = toggle.getAttribute('aria-expanded') === 'true';
+    toggle.setAttribute('aria-expanded', String(!open));
+    toggle.setAttribute('aria-label', open ? 'Open menu' : 'Close menu');
+    nav?.classList.toggle('is-open', !open);
+  });
+</script>
+
+<style>
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--color-white);
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+  }
+
+  .top-bar {
+    background: var(--color-gray-light);
+    font-size: 14px;
+    border-bottom: 1px solid #ebeaea;
+  }
+
+  .top-bar-inner {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    padding-top: 6px;
+    padding-bottom: 6px;
+  }
+
+  .top-bar a { color: var(--color-text-muted); }
+  .top-bar a:hover { color: var(--color-orange-dark); }
+  .top-bar-sep { color: var(--color-border); }
+
+  .main-bar-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    padding-top: 14px;
+    padding-bottom: 14px;
+  }
+
+  .logo-link { flex-shrink: 0; }
+
+  .primary-nav ul {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .primary-nav a {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 15px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--color-text);
+    padding: 8px 0;
+  }
+
+  .primary-nav a:hover,
+  .primary-nav a[aria-current='page'] {
+    color: var(--color-orange);
+  }
+
+  .nav-toggle {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    background: none;
+    border: none;
+    padding: 8px;
+    cursor: pointer;
+  }
+
+  .nav-toggle-bar {
+    width: 26px;
+    height: 3px;
+    background: var(--color-text);
+    border-radius: 2px;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+  }
+
+  .nav-toggle[aria-expanded='true'] .nav-toggle-bar:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
+  }
+  .nav-toggle[aria-expanded='true'] .nav-toggle-bar:nth-child(2) {
+    opacity: 0;
+  }
+  .nav-toggle[aria-expanded='true'] .nav-toggle-bar:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg);
+  }
+
+  @media (max-width: 1024px) {
+    .nav-toggle { display: flex; }
+
+    .primary-nav {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background: var(--color-white);
+      border-top: 1px solid #ebeaea;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    }
+
+    .primary-nav.is-open { display: block; }
+
+    .primary-nav ul {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 0;
+      padding: 8px 0;
+    }
+
+    .primary-nav a {
+      display: block;
+      padding: 14px 24px;
+      border-bottom: 1px solid var(--color-gray-light);
+    }
+
+    .primary-nav li:last-child a { border-bottom: none; }
+  }
+</style>

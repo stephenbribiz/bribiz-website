@@ -1,0 +1,90 @@
+---
+// Variant B for the old newsletter slot: keep the two-column layout —
+// blog teaser on the left, consultation call-to-action on the right.
+import { getCollection } from 'astro:content';
+import { Image } from 'astro:assets';
+
+const [latest] = (await getCollection('blog', ({ data }) => !data.archived)).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
+---
+
+<section class="blog-cta">
+  <div class="container blog-cta-grid">
+    <div class="blog-col">
+      <h2 class="section-heading">Industry News + Blog</h2>
+      {latest && (
+        <a href={`/${latest.id}/`} class="latest-post">
+          <Image
+            src={latest.data.image}
+            alt={latest.data.imageAlt || latest.data.title}
+            width={700}
+            height={394}
+          />
+          <h3>{latest.data.title}</h3>
+          <p>{latest.data.description}</p>
+          <span class="latest-more">Read More »</span>
+        </a>
+      )}
+    </div>
+    <div class="cta-col">
+      <h2 class="section-heading">Let's Talk</h2>
+      <p>
+        Wherever you are in your career, we're confident we can help you organize
+        your business and thrive as an artist. Start with a free, no-obligation
+        conversation about your goals and how we can help you reach them.
+      </p>
+      <a href="/book-a-consultation/" class="btn">Schedule Free Conversation</a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .blog-cta {
+    background: var(--color-gray-section);
+    padding: 72px 0 64px;
+  }
+
+  .blog-cta-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 56px;
+    align-items: start;
+  }
+
+  .latest-post {
+    display: block;
+    color: var(--color-text);
+  }
+
+  .latest-post img { border-radius: 4px; margin-bottom: 18px; }
+
+  .latest-post h3 { font-size: 24px; margin-bottom: 8px; }
+
+  .latest-post p { color: var(--color-text-muted); font-size: 16px; }
+
+  .latest-more {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    color: var(--color-orange-dark);
+    font-size: 15px;
+    text-transform: uppercase;
+  }
+
+  .cta-col {
+    background: var(--color-white);
+    border-radius: 4px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.07);
+    padding: 36px 34px 40px;
+    text-align: center;
+  }
+
+  .cta-col p {
+    color: var(--color-text-muted);
+    margin-bottom: 28px;
+  }
+
+  @media (max-width: 900px) {
+    .blog-cta-grid { grid-template-columns: 1fr; }
+  }
+</style>

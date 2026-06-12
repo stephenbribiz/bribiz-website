@@ -1,0 +1,114 @@
+/* BriBiz design tokens — values taken from the original Avada theme CSS */
+:root {
+  --color-orange: #f89a32;
+  --color-orange-dark: #f36c32;
+  --color-green: #a0ce4e;
+  --color-gray-section: #f7f7f7;
+  --color-gray-light: #f6f6f6;
+  --color-text: #333333;
+  --color-text-muted: #747474;
+  --color-white: #ffffff;
+  --color-border: #cccccc;
+
+  --font-heading: 'Arsenal', 'Trebuchet MS', sans-serif;
+  --font-body: 'Arsenal', 'Trebuchet MS', sans-serif;
+
+  --content-width: 1170px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: 18px;
+  line-height: 1.65;
+  color: var(--color-text);
+  background: var(--color-white);
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  line-height: 1.2;
+  margin: 0 0 0.6em;
+  color: var(--color-text);
+}
+
+h1 { font-size: 48px; }
+h2 { font-size: 34px; }
+h3 { font-size: 24px; }
+h4 { font-size: 20px; }
+
+p { margin: 0 0 1.2em; }
+
+a {
+  color: var(--color-orange-dark);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+a:hover { color: var(--color-orange); }
+
+img { max-width: 100%; height: auto; display: block; }
+
+.container {
+  max-width: var(--content-width);
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* Buttons — flat orange style from the original theme */
+.btn {
+  display: inline-block;
+  background: var(--color-orange);
+  color: var(--color-white);
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 18px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  padding: 16px 36px;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.btn:hover {
+  background: var(--color-orange-dark);
+  color: var(--color-white);
+}
+
+.btn-large { font-size: 20px; padding: 19px 44px; }
+
+/* Section heading style used across pages */
+.section-heading {
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* Angled transition strips between sections */
+.section-divider {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin: -1px 0;
+}
+
+@media (max-width: 800px) {
+  h1 { font-size: 34px; }
+  h2 { font-size: 28px; }
+  h3 { font-size: 22px; }
+  body { font-size: 17px; }
+}

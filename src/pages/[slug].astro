@@ -1,0 +1,119 @@
+---
+// Blog posts live at the site root (e.g. /structuring-your-band-well/) to
+// preserve the original WordPress URLs.
+import type { GetStaticPaths } from 'astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getCollection, render } from 'astro:content';
+import { Image } from 'astro:assets';
+
+export const getStaticPaths = (async () => {
+  const posts = await getCollection('blog');
+  return posts.map((post) => ({
+    params: { slug: post.id },
+    props: { post },
+  }));
+}) satisfies GetStaticPaths;
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+
+const formatDate = (date: Date) =>
+  date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+---
+
+<BaseLayout
+  title={`${post.data.title} - BriBiz`}
+  description={post.data.description}
+  ogImage={post.data.image.src}
+>
+  <article class="post">
+    <header class="post-header">
+      <div class="container post-header-inner">
+        <h1>{post.data.title}</h1>
+        <p class="post-meta">
+          By {post.data.author} ·
+          <time datetime={post.data.pubDate.toISOString()}>
+            {formatDate(post.data.pubDate)}
+          </time>
+        </p>
+      </div>
+    </header>
+
+    <div class="container post-body">
+      <Image
+        src={post.data.image}
+        alt={post.data.imageAlt || post.data.title}
+        width={1200}
+        height={675}
+        class="post-featured"
+        loading="eager"
+      />
+      <div class="post-content">
+        <Content />
+      </div>
+
+      <footer class="post-footer">
+        <a href="/blog/" class="btn">« Back to the Blog</a>
+      </footer>
+    </div>
+  </article>
+</BaseLayout>
+
+<style>
+  .post-header {
+    background: var(--color-gray-section);
+    padding: 56px 0 40px;
+    text-align: center;
+  }
+
+  .post-header h1 {
+    font-size: 38px;
+    max-width: 860px;
+    margin: 0 auto 14px;
+  }
+
+  .post-meta {
+    color: var(--color-text-muted);
+    margin: 0;
+    font-size: 16px;
+  }
+
+  .post-body {
+    max-width: 820px;
+    padding-top: 44px;
+    padding-bottom: 72px;
+  }
+
+  :global(.post-featured) {
+    border-radius: 6px;
+    margin-bottom: 36px;
+  }
+
+  .post-content {
+    font-size: 18px;
+    line-height: 1.75;
+  }
+
+  .post-content :global(h2),
+  .post-content :global(h3) {
+    margin-top: 1.5em;
+  }
+
+  .post-content :global(img) {
+    border-radius: 4px;
+    margin: 24px auto;
+  }
+
+  .post-content :global(a) {
+    text-decoration: underline;
+  }
+
+  .post-footer {
+    margin-top: 48px;
+    text-align: center;
+  }
+
+  @media (max-width: 800px) {
+    .post-header h1 { font-size: 28px; }
+  }
+</style>

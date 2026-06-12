@@ -1,0 +1,29 @@
+---
+import Web3Form from './Web3Form.astro';
+---
+
+<Web3Form
+  subject="New consultation request — bribiz.net"
+  submitLabel="Schedule Free Conversation"
+>
+  <label>
+    Name
+    <input type="text" name="name" required autocomplete="name" />
+  </label>
+  <label>
+    Email
+    <input type="email" name="email" required autocomplete="email" />
+  </label>
+  <label>
+    Phone
+    <input type="tel" name="phone" autocomplete="tel" />
+  </label>
+  <label>
+    Tell us about your work
+    <textarea
+      name="message"
+      rows="6"
+      placeholder="What do you create, and where are you in your career?"
+    ></textarea>
+  </label>
+</Web3Form>

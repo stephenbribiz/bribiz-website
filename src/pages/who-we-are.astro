@@ -1,0 +1,258 @@
+---
+import type { ImageMetadata } from 'astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import CalloutBox from '../components/CalloutBox.astro';
+import { Image } from 'astro:assets';
+
+import brianImg from '../assets/team/brian-smith.png';
+import stephenImg from '../assets/team/stephen-smith.png';
+import amandaImg from '../assets/team/amanda-grimsley.png';
+import laurenImg from '../assets/team/lauren-pittman.png';
+import anthonyImg from '../assets/team/anthony-didion.jpg';
+import sunnieImg from '../assets/team/sunnie-williams.jpg';
+import christopherImg from '../assets/team/christopher-loudermilk.png';
+import beckyImg from '../assets/team/becky-tykodi.png';
+import jasonImg from '../assets/team/jason-moran.png';
+import blakeImg from '../assets/team/blake-nolan.png';
+import jennyImg from '../assets/team/jenny-simmons.png';
+
+interface TeamMember {
+  name: string;
+  title: string;
+  image: ImageMetadata;
+  bio?: string[];
+}
+
+// Roster matches the live site as of Nov 2025.
+// TODO(Stephen): confirm the roster is still current.
+const team: TeamMember[] = [
+  {
+    name: 'Brian Smith',
+    title: 'Founder',
+    image: brianImg,
+    bio: [
+      "Born and raised in Quarryville, PA, Brian Smith founded BriBiz after travelling as a founding member of FFH – first independently, then as a nationally signed act. Brian handled the band's finances while they sold over 2 million albums and performed thousands of shows across the country. But he couldn't help but notice a disconnect between the priorities of Artists on the Road and their Business Managers back home. As FFH retired, Brian settled in Franklin, TN and began to work towards helping other artists gain control over their business affairs in a number of different roles. Finally, in 2006 he started his own business management firm which would later become BriBiz.",
+      'Brian loves working with creatives and cites helping them make sense of their money as his favourite part of his job. He says, "I set out to help artists understand their money, I didn\'t want to just pass them a spreadsheet and let them figure it out on their own. I wanted to walk alongside them and make sure they knew how their business was working, and to help them navigate and thrive in the industry."',
+      'Brian has been married to Allyson for 20 years and they have 5 kids – Madison, Ellie, Rylee and Brinnley, and Miles. Last, but certainly not least, Brian is obsessed with Batman, and can frequently be found adding to his horde of Batman collectables.',
+    ],
+  },
+  {
+    name: 'Stephen Smith',
+    title: 'Chief Operating Officer, Partner',
+    image: stephenImg,
+    bio: [
+      'Stephen Smith joined the BriBiz team in 2014, where he primed his skills in entertainment finance. In 2018, he expanded his expertise by joining a record label as a finance manager, gaining invaluable industry insights and a fresh perspective. This experience paved the way for his return to BriBiz in 2020 as Chief Operating Officer.',
+      "With over a decade of experience in the entertainment industry, Stephen brings a wealth of knowledge and strategic vision to BriBiz. His leadership and commitment to the company's mission have been instrumental in its growth and success. In 2024, Stephen became a Partner at BriBiz, further solidifying his dedication to driving the company forward.",
+      'Stephen holds a degree in finance from the University of Arkansas. He is passionate about providing exceptional client care, ensuring clients feel confident in their business decisions while knowing that a trusted expert advocate manages their financial operations.',
+      'When not at work, Stephen enjoys spending time outdoors, whether hunting or playing golf. He resides in Nashville with his wife, Rachel, and their son, Hudson.',
+    ],
+  },
+  { name: 'Amanda Grimsley', title: 'Business Manager', image: amandaImg },
+  { name: 'Lauren Pittman', title: 'Assistant Account Manager', image: laurenImg },
+  { name: 'Anthony Didion', title: 'Account Manager', image: anthonyImg },
+  { name: 'Sunnie Williams', title: 'Account Manager', image: sunnieImg },
+  { name: 'Christopher Loudermilk', title: 'Account Manager', image: christopherImg },
+  { name: 'Becky Tykodi', title: 'Assistant Account Manager', image: beckyImg },
+  { name: 'Jason Moran', title: 'Account Manager', image: jasonImg },
+  { name: 'Blake Nolan', title: 'Account Manager', image: blakeImg },
+  { name: 'Jenny Simmons', title: 'Office Manager', image: jennyImg },
+];
+---
+
+<BaseLayout
+  title="Who We Are - BriBiz"
+  description="BriBiz is a Creative-Friendly Entertainment Business Management and Accounting Firm located in Nashville, TN. Founded in 2006, BriBiz seeks to serve the business and financial needs of the entertainment community."
+>
+  <PageHero title="Who We Are" />
+
+  <section class="company-bio">
+    <div class="container company-bio-inner">
+      <p>
+        BriBiz is a Creative-Friendly Entertainment Business Management and
+        Accounting Firm located in Nashville, TN. Founded in 2006, BriBiz seeks to
+        serve the business and financial needs of the entertainment community.
+      </p>
+      <p>
+        From entertainers and producers to music publishers and record labels,
+        we've worked with artists and businesses throughout the entertainment
+        industry. We understand the unique challenges creative professionals
+        face—the irregular income, the pressure of touring, the complexity of
+        royalties—and we're committed to helping you navigate those waters with
+        clarity and confidence.
+      </p>
+      <p>
+        Our approach is simple: we're not here to manage your career or make
+        creative decisions. We're here to organize your business, maximize your
+        financial health, and give you the peace of mind to focus on what you do
+        best—creating.
+      </p>
+      <p>
+        With over 20 years of experience in entertainment business management and
+        accounting, our team brings both expertise and heart to every client
+        relationship. We've been on the road. We understand the lifestyle. We've
+        faced the same challenges you face. And we're committed to helping you
+        build a sustainable business around your creative vision.
+      </p>
+    </div>
+  </section>
+
+  <section class="team">
+    <div class="container">
+      <h2 class="section-heading">Meet the Team</h2>
+      <div class="team-grid">
+        {team.map((member, i) => (
+          <div class="team-card">
+            <Image
+              src={member.image}
+              alt={member.name}
+              width={400}
+              height={400}
+              class="team-photo"
+            />
+            <h3>{member.name}</h3>
+            <p class="team-title">{member.title}</p>
+            {member.bio && (
+              <button class="bio-link" data-bio-open={`bio-${i}`}>Read Bio</button>
+            )}
+            {member.bio && (
+              <dialog id={`bio-${i}`} class="bio-modal">
+                <div class="bio-modal-head">
+                  <h3>About {member.name}</h3>
+                  <button class="bio-close" data-bio-close aria-label="Close">&times;</button>
+                </div>
+                {member.bio.map((para) => <p>{para}</p>)}
+              </dialog>
+            )}
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <CalloutBox />
+</BaseLayout>
+
+<script>
+  document.querySelectorAll<HTMLButtonElement>('[data-bio-open]').forEach((btn) => {
+    const dialog = document.getElementById(btn.dataset.bioOpen!) as HTMLDialogElement;
+    btn.addEventListener('click', () => dialog.showModal());
+    dialog.querySelector('[data-bio-close]')?.addEventListener('click', () => dialog.close());
+    dialog.addEventListener('click', (e) => {
+      if (e.target === dialog) dialog.close();
+    });
+  });
+</script>
+
+<style>
+  .company-bio {
+    padding: 64px 0 32px;
+  }
+
+  .company-bio-inner {
+    max-width: 860px;
+    font-size: 19px;
+    color: var(--color-text-muted);
+  }
+
+  .team {
+    padding: 40px 0 72px;
+  }
+
+  .team-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px 32px;
+    margin-top: 24px;
+  }
+
+  .team-card {
+    text-align: center;
+  }
+
+  :global(.team-photo) {
+    border-radius: 50%;
+    width: 220px;
+    height: 220px;
+    object-fit: cover;
+    margin: 0 auto 18px;
+  }
+
+  .team-card h3 {
+    font-size: 22px;
+    margin-bottom: 4px;
+  }
+
+  .team-title {
+    color: var(--color-text-muted);
+    font-size: 16px;
+    margin-bottom: 10px;
+  }
+
+  .bio-link {
+    background: none;
+    border: 2px solid var(--color-orange);
+    color: var(--color-orange-dark);
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 8px 22px;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background 0.2s ease, color 0.2s ease;
+  }
+
+  .bio-link:hover {
+    background: var(--color-orange);
+    color: var(--color-white);
+  }
+
+  .bio-modal {
+    max-width: 680px;
+    border: none;
+    border-radius: 6px;
+    padding: 32px 36px;
+    text-align: left;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+  }
+
+  .bio-modal::backdrop {
+    background: rgba(0, 0, 0, 0.55);
+  }
+
+  .bio-modal-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+  }
+
+  .bio-modal-head h3 { margin: 0; }
+
+  .bio-modal p {
+    color: var(--color-text-muted);
+    font-size: 17px;
+  }
+
+  .bio-close {
+    background: none;
+    border: none;
+    font-size: 30px;
+    line-height: 1;
+    color: var(--color-text-muted);
+    cursor: pointer;
+    padding: 0 4px;
+  }
+
+  .bio-close:hover { color: var(--color-text); }
+
+  @media (max-width: 900px) {
+    .team-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  @media (max-width: 600px) {
+    .team-grid { grid-template-columns: 1fr; }
+  }
+</style>

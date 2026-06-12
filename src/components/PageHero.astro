@@ -1,0 +1,38 @@
+---
+import orange2 from '../assets/backgrounds/orange2.jpg';
+import transWhiteR from '../assets/backgrounds/trans-white-r.png';
+
+interface Props {
+  title: string;
+}
+
+const { title } = Astro.props;
+---
+
+<section class="page-hero" style={`background-image: url(${orange2.src})`}>
+  <div class="container">
+    <h1>{title}</h1>
+  </div>
+  <img src={transWhiteR.src} alt="" class="section-divider" />
+</section>
+
+<style>
+  .page-hero {
+    background-color: var(--color-orange);
+    background-size: cover;
+    background-position: center;
+    text-align: center;
+  }
+
+  .page-hero .container {
+    padding-top: 84px;
+    padding-bottom: 64px;
+  }
+
+  .page-hero h1 {
+    color: var(--color-white);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin: 0;
+  }
+</style>

@@ -1,0 +1,225 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import CalloutBox from '../components/CalloutBox.astro';
+
+const services = [
+  {
+    title: 'Bookkeeping & Accounts',
+    body: "We'll help manage your incoming and outgoing accounts, tracking and recording everything. Then we'll keep you up-to-speed with regular reports.",
+  },
+  {
+    title: 'Cash Flow Management',
+    body: "We'll work with you to manage your income and expenses to create positive cash flow, leaving you with less risk and more money to fuel your vision.",
+  },
+  {
+    title: 'Tour Budget Preparation & Management',
+    body: 'We create short and long-term projections and budgets for touring, including wages, per diems, hotels, travel, equipment, rentals and commissions.',
+  },
+  {
+    title: 'Payroll & Accounts',
+    body: 'We help manage all payroll for your business in-house, including paychecks, state and federal tax filings, and issuing all relevant forms to staff.',
+  },
+  {
+    title: 'Copyright Administration',
+    body: "Whenever you receive royalties, we'll ensure that they are correct and manage any mechanical royalties due if your album is released independently.",
+  },
+  {
+    title: 'Reconciliation of Accounts',
+    body: "We'll make sure that that your bank records and financial statements are accurate and up-to-date, so you can focus on what you do best without worry.",
+  },
+  {
+    title: 'Tax Services',
+    body: 'We manage filings, sales tax, non-resident withholding taxes for states and foreign countries, and help you plan for a better long-term tax situation.',
+  },
+  {
+    title: 'Risk & Insurance',
+    body: "Your success depends on managing risk well. With this in mind, we'll help you secure insurance for all of your business needs, staff and assets.",
+  },
+  {
+    title: 'Banking & Financing',
+    body: 'We have great working relationships with almost every bank to support your banking needs, from deposits and transfers to opening accounts and loans.',
+  },
+  {
+    title: 'Wealth Management',
+    body: "Once business is thriving, you'll need a plan. We can help you ensure that your wealth continues growing with investment, financial and tax services.",
+  },
+  {
+    title: 'Financial Statements',
+    body: "We'll regularly prepare an up-to-date report of your business activity, giving you a sense of how your business is doing and what you can do about it.",
+  },
+  {
+    title: 'Business Planning',
+    body: "You'll need business goals to match your creative vision, and we're here to help. We'll help create the strategies that will make your vision real.",
+  },
+];
+---
+
+<BaseLayout
+  title="What We Do - BriBiz"
+  description="What does Creative-Friendly Business Management mean? We're passionate about delivering high-quality services to our clients, in a way that makes sense for them - because we've been in their shoes."
+>
+  <PageHero title="What We Do" />
+
+  <section class="intro">
+    <div class="container intro-inner">
+      <p>
+        What does Creative-Friendly Business Management mean? Well, it means that
+        we're passionate about delivering high-quality services to our clients, in
+        a way that makes sense for them – because we've been in their shoes.
+      </p>
+      <p>
+        We know exactly what it's like to be stuck at a gas station in Idaho and
+        needing money–fast. So with each and every one of the services below, we
+        work hard to be communicative, approachable, and to help you grow your
+        business in a way that empowers you to focus on what you do best.
+      </p>
+    </div>
+  </section>
+
+  <section class="services">
+    <div class="container">
+      <div class="flip-grid">
+        {services.map((service) => (
+          <button class="flip-card" data-flip aria-expanded="false">
+            <span class="flip-inner">
+              <span class="flip-front">
+                <span class="flip-title">{service.title}</span>
+              </span>
+              <span class="flip-back">
+                <span class="flip-body">{service.body}</span>
+              </span>
+            </span>
+          </button>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-row">
+    <div class="container cta-row-inner">
+      <a href="/who-we-are/" class="btn">Learn about the BriBiz Team</a>
+      <a href="/book-a-consultation/" class="btn">I'm ready! Let's get started!</a>
+    </div>
+  </section>
+
+  <CalloutBox />
+</BaseLayout>
+
+<script>
+  // Hover flips on desktop via CSS; click/tap toggles for touch devices.
+  document.querySelectorAll<HTMLButtonElement>('[data-flip]').forEach((card) => {
+    card.addEventListener('click', () => {
+      const flipped = card.getAttribute('aria-expanded') === 'true';
+      card.setAttribute('aria-expanded', String(!flipped));
+    });
+  });
+</script>
+
+<style>
+  .intro {
+    padding: 64px 0 24px;
+  }
+
+  .intro-inner {
+    max-width: 860px;
+    text-align: center;
+    font-size: 19px;
+    color: var(--color-text-muted);
+  }
+
+  .services {
+    padding: 32px 0 56px;
+  }
+
+  .flip-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+
+  .flip-card {
+    perspective: 1000px;
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    min-height: 200px;
+    text-align: center;
+    font: inherit;
+  }
+
+  .flip-inner {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 100%;
+    min-height: 200px;
+    transition: transform 0.55s;
+    transform-style: preserve-3d;
+  }
+
+  .flip-card:hover .flip-inner,
+  .flip-card:focus-visible .flip-inner,
+  .flip-card[aria-expanded='true'] .flip-inner {
+    transform: rotateY(180deg);
+  }
+
+  .flip-front,
+  .flip-back {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    border-radius: 4px;
+    backface-visibility: hidden;
+  }
+
+  .flip-front {
+    background: var(--color-orange);
+    color: var(--color-white);
+  }
+
+  .flip-title {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 22px;
+    line-height: 1.3;
+  }
+
+  .flip-back {
+    background: var(--color-text);
+    color: var(--color-white);
+    transform: rotateY(180deg);
+  }
+
+  .flip-body {
+    font-size: 15px;
+    line-height: 1.55;
+  }
+
+  .cta-row {
+    padding: 16px 0 64px;
+  }
+
+  .cta-row-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+
+  .cta-row .btn {
+    text-align: center;
+  }
+
+  @media (max-width: 900px) {
+    .flip-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  @media (max-width: 620px) {
+    .flip-grid { grid-template-columns: 1fr; }
+    .cta-row-inner { grid-template-columns: 1fr; }
+  }
+</style>

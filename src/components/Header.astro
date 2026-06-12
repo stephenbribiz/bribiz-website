@@ -2,6 +2,7 @@
 import { Image } from 'astro:assets';
 import logo from '../assets/logo.png';
 import { BLOG_ENABLED } from '../config';
+import { socials } from '../data/socials';
 
 const navItems = [
   { label: 'Home', href: '/' },
@@ -18,9 +19,20 @@ const currentPath = Astro.url.pathname;
 <header class="site-header">
   <div class="top-bar">
     <div class="container top-bar-inner">
-      <a href="tel:615-390-7083">615-390-7083</a>
-      <span class="top-bar-sep">|</span>
-      <a href="mailto:info@bribiz.net">info@bribiz.net</a>
+      <p class="top-bar-contact">
+        Call Us Today! <a href="tel:615-390-7083">615-390-7083</a>
+        <span class="top-bar-sep">|</span>
+        <a href="mailto:info@bribiz.net">info@bribiz.net</a>
+      </p>
+      <div class="top-bar-socials">
+        {socials.map((s) => (
+          <a href={s.href} aria-label={s.label} target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true">
+              <path d={s.path} />
+            </svg>
+          </a>
+        ))}
+      </div>
     </div>
   </div>
   <div class="main-bar">
@@ -71,23 +83,45 @@ const currentPath = Astro.url.pathname;
     box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
   }
 
+  /* Orange top bar from the original design; charcoal text passes WCAG AA
+     on the brand orange (5.81:1) where the original's white did not. */
   .top-bar {
-    background: var(--color-gray-light);
+    background: var(--color-orange);
     font-size: 14px;
-    border-bottom: 1px solid #ebeaea;
   }
 
   .top-bar-inner {
     display: flex;
-    justify-content: flex-end;
-    gap: 10px;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
     padding-top: 6px;
     padding-bottom: 6px;
   }
 
-  .top-bar a { color: var(--color-text-muted); }
-  .top-bar a:hover { color: var(--color-orange-dark); }
-  .top-bar-sep { color: var(--color-border); }
+  .top-bar-contact {
+    margin: 0;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    color: var(--color-text);
+  }
+
+  .top-bar a { color: var(--color-text); }
+  .top-bar a:hover { color: var(--color-white); }
+  .top-bar-sep { color: rgba(51, 51, 51, 0.4); padding: 0 4px; }
+
+  .top-bar-socials {
+    display: flex;
+    gap: 4px;
+  }
+
+  .top-bar-socials a {
+    display: inline-flex;
+    padding: 4px;
+    color: var(--color-text);
+  }
+
+  .top-bar-socials a:hover { color: var(--color-white); }
 
   .main-bar-inner {
     display: flex;

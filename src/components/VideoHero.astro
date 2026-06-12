@@ -28,7 +28,7 @@ const poster = await getImage({ src: posterSrc, width: 1600, format: 'webp' });
         Helping you gain control over your finances and grow your creative business
         – without losing your soul.
       </p>
-      <a href="/whatwedo/" class="btn btn-large">See What We Do</a>
+      <a href="/whatwedo/" class="btn btn-large btn-hero">See What We Do</a>
     </div>
   </div>
 </section>
@@ -83,23 +83,24 @@ const poster = await getImage({ src: posterSrc, width: 1600, format: 'webp' });
     object-fit: cover;
   }
 
+  /* The original design has no dark overlay: the video footage is light and
+     washed out, with charcoal text sitting directly on it. */
   .video-hero-overlay {
     position: relative;
     flex: 1;
     display: flex;
     align-items: center;
-    background: rgba(0, 0, 0, 0.25);
   }
 
   .video-hero-content {
     max-width: 720px;
     margin: 0;
     padding: 80px 24px 80px max(24px, calc((100vw - var(--content-width)) / 2 + 24px));
-    color: var(--color-white);
+    color: var(--color-text);
   }
 
   .video-hero-content h1 {
-    color: var(--color-white);
+    color: var(--color-text);
     font-size: 56px;
     margin-bottom: 16px;
   }
@@ -108,7 +109,22 @@ const poster = await getImage({ src: posterSrc, width: 1600, format: 'webp' });
     font-size: 24px;
     line-height: 1.45;
     margin-bottom: 32px;
-    color: rgba(255, 255, 255, 0.95);
+    color: var(--color-text);
+  }
+
+  /* Wide deep-orange hero button with white text, like the original
+     "Learn More" — #c24a10 keeps white text at 4.91:1 (WCAG AA). */
+  .video-hero-content :global(.btn-hero) {
+    background: var(--color-orange-dark);
+    color: var(--color-white);
+    display: block;
+    max-width: 480px;
+    text-align: center;
+  }
+
+  .video-hero-content :global(.btn-hero:hover) {
+    background: var(--color-orange);
+    color: var(--color-text);
   }
 
   @media (max-width: 800px) {

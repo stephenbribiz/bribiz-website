@@ -24,12 +24,12 @@ interface TeamMember {
   bio?: string[];
 }
 
-// Roster matches the live site as of Nov 2025.
-// TODO(Stephen): confirm the roster is still current.
-const team: TeamMember[] = [
+// Roster matches the live site as of Nov 2025; titles per Stephen (Jun 2026).
+// Leadership renders in its own tier above the rest of the team.
+const leadership: TeamMember[] = [
   {
     name: 'Brian Smith',
-    title: 'Founder',
+    title: 'Partner & Founder',
     image: brianImg,
     bio: [
       "Born and raised in Quarryville, PA, Brian Smith founded BriBiz after travelling as a founding member of FFH – first independently, then as a nationally signed act. Brian handled the band's finances while they sold over 2 million albums and performed thousands of shows across the country. But he couldn't help but notice a disconnect between the priorities of Artists on the Road and their Business Managers back home. As FFH retired, Brian settled in Franklin, TN and began to work towards helping other artists gain control over their business affairs in a number of different roles. Finally, in 2006 he started his own business management firm which would later become BriBiz.",
@@ -39,7 +39,7 @@ const team: TeamMember[] = [
   },
   {
     name: 'Stephen Smith',
-    title: 'Chief Operating Officer, Partner',
+    title: 'Partner & Business Manager',
     image: stephenImg,
     bio: [
       'Stephen Smith joined the BriBiz team in 2014, where he primed his skills in entertainment finance. In 2018, he expanded his expertise by joining a record label as a finance manager, gaining invaluable industry insights and a fresh perspective. This experience paved the way for his return to BriBiz in 2020 as Chief Operating Officer.',
@@ -48,6 +48,9 @@ const team: TeamMember[] = [
       'When not at work, Stephen enjoys spending time outdoors, whether hunting or playing golf. He resides in Nashville with his wife, Rachel, and their son, Hudson.',
     ],
   },
+];
+
+const team: TeamMember[] = [
   { name: 'Amanda Grimsley', title: 'Business Manager', image: amandaImg },
   { name: 'Lauren Pittman', title: 'Assistant Account Manager', image: laurenImg },
   { name: 'Anthony Didion', title: 'Account Manager', image: anthonyImg },
@@ -67,7 +70,7 @@ const personSchema = [
     '@context': 'https://schema.org',
     '@type': 'Person',
     name: 'Brian Smith',
-    jobTitle: 'Founder',
+    jobTitle: 'Partner & Founder',
     image: new URL(brianImg.src, Astro.site).href,
     worksFor: { '@id': orgId },
     sameAs: ['https://www.linkedin.com/in/brian-smith-83629727/'],
@@ -78,11 +81,11 @@ const personSchema = [
     '@context': 'https://schema.org',
     '@type': 'Person',
     name: 'Stephen Smith',
-    jobTitle: 'Chief Operating Officer, Partner',
+    jobTitle: 'Partner & Business Manager',
     image: new URL(stephenImg.src, Astro.site).href,
     worksFor: { '@id': orgId },
     description:
-      'Chief Operating Officer and Partner at BriBiz Entertainment Business Management, with over a decade of experience in entertainment finance.',
+      'Partner and Business Manager at BriBiz Entertainment Business Management, with over a decade of experience in entertainment finance.',
   },
 ];
 ---
@@ -130,15 +133,16 @@ const personSchema = [
   <section class="team">
     <div class="container">
       <h2 class="section-heading">Meet the Team</h2>
-      <div class="team-grid">
-        {team.map((member, i) => (
-          <div class="team-card">
+
+      <div class="leadership-grid">
+        {leadership.map((member, i) => (
+          <div class="team-card leadership-card">
             <Image
               src={member.image}
               alt={`${member.name}, ${member.title} at BriBiz`}
-              width={400}
-              height={400}
-              class="team-photo"
+              width={520}
+              height={520}
+              class="leadership-photo"
             />
             <h3>{member.name}</h3>
             <p class="team-title">{member.title}</p>
@@ -154,6 +158,22 @@ const personSchema = [
                 {member.bio.map((para) => <p>{para}</p>)}
               </dialog>
             )}
+          </div>
+        ))}
+      </div>
+
+      <div class="team-grid">
+        {team.map((member) => (
+          <div class="team-card">
+            <Image
+              src={member.image}
+              alt={`${member.name}, ${member.title} at BriBiz`}
+              width={400}
+              height={400}
+              class="team-photo"
+            />
+            <h3>{member.name}</h3>
+            <p class="team-title">{member.title}</p>
           </div>
         ))}
       </div>
@@ -195,11 +215,35 @@ const personSchema = [
     padding: 40px 0 72px;
   }
 
+  /* Leadership tier: Brian and Stephen sit above the rest of the team,
+     larger and centered. */
+  .leadership-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 320px));
+    justify-content: center;
+    gap: 40px 64px;
+    margin-top: 24px;
+    padding-bottom: 48px;
+    border-bottom: 1px solid #ebeaea;
+  }
+
+  :global(.leadership-photo) {
+    border-radius: 50%;
+    width: 280px;
+    height: 280px;
+    object-fit: cover;
+    margin: 0 auto 20px;
+  }
+
+  .leadership-card h3 {
+    font-size: 26px;
+  }
+
   .team-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 40px 32px;
-    margin-top: 24px;
+    margin-top: 48px;
   }
 
   .team-card {
@@ -290,5 +334,6 @@ const personSchema = [
 
   @media (max-width: 600px) {
     .team-grid { grid-template-columns: 1fr; }
+    .leadership-grid { grid-template-columns: minmax(0, 320px); }
   }
 </style>

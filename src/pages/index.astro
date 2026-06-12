@@ -3,9 +3,12 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import VideoHero from '../components/VideoHero.astro';
 import HomeConsultCta from '../components/HomeConsultCta.astro';
 import TestimonialSlider from '../components/TestimonialSlider.astro';
-import bgOrange from '../assets/backgrounds/bg-orange-overlay.jpg';
+import { getImage } from 'astro:assets';
+import bgOrangeSrc from '../assets/backgrounds/bg-orange-overlay.jpg';
 import transWhiteTail from '../assets/backgrounds/trans-white-tail-l.png';
 import transWhiteArrow from '../assets/backgrounds/trans-white-arrow-r-f7.png';
+
+const bgOrange = await getImage({ src: bgOrangeSrc, width: 1920, format: 'webp' });
 
 const businessServices = [
   'Bookkeeping & Accounts',
@@ -26,8 +29,8 @@ const financialServices = [
 ---
 
 <BaseLayout
-  title="Home - BriBiz"
-  description="Business Management for Creatives. Helping you gain control over your finances and grow your creative business - without losing your soul."
+  title="Music Business Management for Artists | BriBiz Franklin, TN"
+  description="BriBiz provides business & financial management for musicians, entertainers & creatives — tour budgets, royalties, taxes, bookkeeping. Based in Franklin, TN."
 >
   <VideoHero />
 
@@ -40,17 +43,18 @@ const financialServices = [
       {/* TODO(Stephen): original copy said "set out 11 years ago" (written ~2017).
           Reworded to "in 2006" to stay evergreen — confirm or supply new copy. */}
       <p>
-        Having lived as a recording Artist on a major label, BriBiz founder Brian
-        Smith set out in 2006 to bridge the gap between Entertainers and their
-        Businesses, working to help them thrive creatively AND grow financially.
-        Since then, BriBiz has helped steward the careers of many chart-top
-        musicians and successful creatives, touching every corner of the globe.
+        Having lived as a recording Artist on a major label, <a
+        href="/who-we-are/">BriBiz founder Brian Smith</a> set out in 2006 to
+        bridge the gap between Entertainers and their Businesses, working to
+        help them thrive creatively AND grow financially. Since then, BriBiz
+        has helped steward the careers of many chart-top musicians and
+        successful creatives, touching every corner of the globe.
       </p>
     </div>
   </section>
 
   <section class="what-we-do" style={`background-image: url(${bgOrange.src})`}>
-    <img src={transWhiteTail.src} alt="" class="section-divider divider-top" />
+    <img src={transWhiteTail.src} alt="" width={transWhiteTail.width} height={transWhiteTail.height} class="section-divider divider-top" />
     <div class="container what-we-do-inner">
       <h2 class="section-heading">Business &amp; Financial Management</h2>
       <p class="what-we-do-intro">
@@ -72,9 +76,9 @@ const financialServices = [
           </ul>
         </div>
       </div>
-      <a href="/whatwedo/" class="btn">Learn More</a>
+      <a href="/whatwedo/" class="btn">Explore Our Services</a>
     </div>
-    <img src={transWhiteArrow.src} alt="" class="section-divider divider-bottom" />
+    <img src={transWhiteArrow.src} alt="" width={transWhiteArrow.width} height={transWhiteArrow.height} class="section-divider divider-bottom" />
   </section>
 
   <HomeConsultCta />

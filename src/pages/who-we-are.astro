@@ -58,16 +58,46 @@ const team: TeamMember[] = [
   { name: 'Blake Nolan', title: 'Account Manager', image: blakeImg },
   { name: 'Jenny Simmons', title: 'Office Manager', image: jennyImg },
 ];
+
+// Person schema for leadership only (per Stephen) — linked to the
+// organization node BaseLayout renders on every page.
+const orgId = new URL('/#organization', Astro.site).href;
+const personSchema = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Person',
+    name: 'Brian Smith',
+    jobTitle: 'Founder',
+    image: new URL(brianImg.src, Astro.site).href,
+    worksFor: { '@id': orgId },
+    sameAs: ['https://www.linkedin.com/in/brian-smith-83629727/'],
+    description:
+      'Founder of BriBiz Entertainment Business Management and former member of the band FFH. Brian has helped artists and creatives manage their business and finances since 2006.',
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Person',
+    name: 'Stephen Smith',
+    jobTitle: 'Chief Operating Officer, Partner',
+    image: new URL(stephenImg.src, Astro.site).href,
+    worksFor: { '@id': orgId },
+    description:
+      'Chief Operating Officer and Partner at BriBiz Entertainment Business Management, with over a decade of experience in entertainment finance.',
+  },
+];
 ---
 
 <BaseLayout
-  title="Who We Are - BriBiz"
-  description="BriBiz is a Creative-Friendly Entertainment Business Management and Accounting Firm located in Nashville, TN. Founded in 2006, BriBiz seeks to serve the business and financial needs of the entertainment community."
+  title="BriBiz Team | Music Business Managers in Franklin, TN"
+  description="Founded by a former major-label recording artist, BriBiz has managed the business side of chart-topping musicians and creatives for over a decade."
+  breadcrumbName="Who We Are"
+  schema={personSchema}
 >
   <PageHero title="Who We Are" />
 
   <section class="company-bio">
     <div class="container company-bio-inner">
+      <h2>An Entertainment Business Management &amp; Accounting Firm</h2>
       <p>
         BriBiz is a Creative-Friendly Entertainment Business Management and
         Accounting Firm located in Nashville, TN. Founded in 2006, BriBiz seeks to
@@ -105,7 +135,7 @@ const team: TeamMember[] = [
           <div class="team-card">
             <Image
               src={member.image}
-              alt={member.name}
+              alt={`${member.name}, ${member.title} at BriBiz`}
               width={400}
               height={400}
               class="team-photo"
@@ -153,6 +183,12 @@ const team: TeamMember[] = [
     max-width: 860px;
     font-size: 19px;
     color: var(--color-text-muted);
+  }
+
+  .company-bio-inner h2 {
+    font-size: 28px;
+    margin-bottom: 20px;
+    text-align: center;
   }
 
   .team {

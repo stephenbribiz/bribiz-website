@@ -1,12 +1,15 @@
 /* BriBiz design tokens — values taken from the original Avada theme CSS */
 :root {
   --color-orange: #f89a32;
-  --color-orange-dark: #f36c32;
+  /* Deepened from the original #f36c32 so orange text/links on white pass
+     WCAG AA (4.91:1). Used for links, accent text, and button hover. */
+  --color-orange-dark: #c24a10;
   --color-green: #a0ce4e;
   --color-gray-section: #f7f7f7;
   --color-gray-light: #f6f6f6;
   --color-text: #333333;
-  --color-text-muted: #747474;
+  /* 4.97:1 on the #F7F7F7 gray sections (WCAG AA); the original #747474 was 4.36:1 */
+  --color-text-muted: #6b6b6b;
   --color-white: #ffffff;
   --color-border: #cccccc;
 
@@ -67,11 +70,12 @@ img { max-width: 100%; height: auto; display: block; }
   padding: 0 24px;
 }
 
-/* Buttons — flat orange style from the original theme */
+/* Buttons — flat orange style from the original theme. Charcoal text on the
+   brand orange passes WCAG AA at 5.81:1 (white was 2.17:1). */
 .btn {
   display: inline-block;
   background: var(--color-orange);
-  color: var(--color-white);
+  color: var(--color-text);
   font-family: var(--font-heading);
   font-weight: 700;
   font-size: 18px;
@@ -81,7 +85,7 @@ img { max-width: 100%; height: auto; display: block; }
   border: none;
   border-radius: 3px;
   cursor: pointer;
-  transition: background 0.2s ease;
+  transition: background 0.2s ease, color 0.2s ease;
 }
 
 .btn:hover {

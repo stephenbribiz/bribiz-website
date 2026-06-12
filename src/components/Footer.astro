@@ -1,9 +1,10 @@
 ---
-import { Image } from 'astro:assets';
+import { Image, getImage } from 'astro:assets';
 import logoWhite from '../assets/logo-white.png';
-import bgBuilding from '../assets/backgrounds/bg-building.jpg';
+import bgBuildingSrc from '../assets/backgrounds/bg-building.jpg';
 import { BLOG_ENABLED } from '../config';
 
+const bgBuilding = await getImage({ src: bgBuildingSrc, width: 1920, format: 'webp' });
 const year = new Date().getFullYear();
 
 const footerNav = [

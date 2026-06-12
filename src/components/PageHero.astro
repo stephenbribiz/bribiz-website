@@ -1,5 +1,6 @@
 ---
-import orange2 from '../assets/backgrounds/orange2.jpg';
+import { getImage } from 'astro:assets';
+import orange2Src from '../assets/backgrounds/orange2.jpg';
 import transWhiteR from '../assets/backgrounds/trans-white-r.png';
 
 interface Props {
@@ -7,13 +8,14 @@ interface Props {
 }
 
 const { title } = Astro.props;
+const orange2 = await getImage({ src: orange2Src, width: 1920, format: 'webp' });
 ---
 
 <section class="page-hero" style={`background-image: url(${orange2.src})`}>
   <div class="container">
     <h1>{title}</h1>
   </div>
-  <img src={transWhiteR.src} alt="" class="section-divider" />
+  <img src={transWhiteR.src} alt="" width={transWhiteR.width} height={transWhiteR.height} class="section-divider" />
 </section>
 
 <style>

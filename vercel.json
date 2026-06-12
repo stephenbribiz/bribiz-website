@@ -1,0 +1,34 @@
+{
+  "trailingSlash": true,
+  "redirects": [
+    { "source": "/category/:path*", "destination": "/", "permanent": true },
+    { "source": "/tag/:path*", "destination": "/", "permanent": true },
+    { "source": "/author/:path*", "destination": "/", "permanent": true },
+    { "source": "/element_category/:path*", "destination": "/", "permanent": true },
+    { "source": "/feed", "destination": "/", "permanent": true },
+    { "source": "/feed/:path*", "destination": "/", "permanent": true },
+    { "source": "/comments/:path*", "destination": "/", "permanent": true },
+    { "source": "/sample-page/", "destination": "/", "permanent": true },
+    { "source": "/case-studies/", "destination": "/", "permanent": true },
+    { "source": "/thanks/", "destination": "/", "permanent": true },
+    { "source": "/posts/", "destination": "/", "permanent": true },
+    { "source": "/sitemap.xml", "destination": "/sitemap-index.xml", "permanent": true },
+    { "source": "/sitemap_index.xml", "destination": "/sitemap-index.xml", "permanent": true },
+    { "source": "/wp-sitemap.xml", "destination": "/sitemap-index.xml", "permanent": true },
+    { "source": "/post-sitemap.xml", "destination": "/sitemap-index.xml", "permanent": true },
+    { "source": "/page-sitemap.xml", "destination": "/sitemap-index.xml", "permanent": true },
+
+    { "source": "/blog/", "destination": "/", "permanent": false },
+    { "source": "/streaming-booms-in-2017/", "destination": "/", "permanent": false },
+    { "source": "/making-a-living-at-music-the-sustainable-way/", "destination": "/", "permanent": false },
+    { "source": "/should-we-make-the-band-a-non-profit/", "destination": "/", "permanent": false },
+    { "source": "/how-much-do-i-really-make-from-royalties/", "destination": "/", "permanent": false },
+    { "source": "/what-do-you-even-do/", "destination": "/", "permanent": false },
+    { "source": "/what-do-you-even-do-part-ii/", "destination": "/", "permanent": false },
+    { "source": "/4-myths-about-contracts-and-real-life-examples/", "destination": "/", "permanent": false },
+    { "source": "/artists-in-the-time-of-covid-19/", "destination": "/", "permanent": false },
+    { "source": "/concerts-during-coronavirus/", "destination": "/", "permanent": false },
+    { "source": "/a-river-of-nickels-how-artists-producers-make-money/", "destination": "/", "permanent": false },
+    { "source": "/structuring-your-band-well/", "destination": "/", "permanent": false }
+  ]
+}

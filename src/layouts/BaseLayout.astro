@@ -3,6 +3,8 @@ import '@fontsource/arsenal/400.css';
 import '@fontsource/arsenal/400-italic.css';
 import '@fontsource/arsenal/700.css';
 import '@fontsource/arsenal/700-italic.css';
+import arsenal400 from '@fontsource/arsenal/files/arsenal-latin-400-normal.woff2?url';
+import arsenal700 from '@fontsource/arsenal/files/arsenal-latin-700-normal.woff2?url';
 import '../styles/global.css';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
@@ -12,11 +14,70 @@ interface Props {
   title: string;
   description: string;
   ogImage?: string;
+  /** Short page name for the breadcrumb trail (omit on the homepage). */
+  breadcrumbName?: string;
+  /** Extra page-specific JSON-LD objects (Person, Article, …). */
+  schema?: Record<string, unknown>[];
 }
 
-const { title, description, ogImage } = Astro.props;
+const { title, description, ogImage, breadcrumbName, schema = [] } = Astro.props;
 const canonical = new URL(Astro.url.pathname, Astro.site);
-const ogImageUrl = new URL(ogImage ?? logo.src, Astro.site);
+// Default og:image is the generated 1200x630 brand card (public/og-image.png);
+// pages can override (e.g. blog posts pass their featured image).
+const ogImageUrl = new URL(ogImage ?? '/og-image.png', Astro.site);
+
+// --- JSON-LD structured data -------------------------------------------
+// LocalBusiness (AccountingService) renders on every page; geo coordinates
+// are the office at 135 5th Ave S, Franklin, TN (from the original site map).
+const organization = {
+  '@context': 'https://schema.org',
+  '@type': 'AccountingService',
+  '@id': new URL('/#organization', Astro.site).href,
+  name: 'BriBiz Entertainment Business Management',
+  description:
+    'Business and financial management for musicians, entertainers, and creatives — bookkeeping, tour budgets, royalty accounting, taxes, and wealth management.',
+  url: Astro.site?.href,
+  logo: new URL(logo.src, Astro.site).href,
+  image: new URL(logo.src, Astro.site).href,
+  telephone: '+1-615-390-7083',
+  email: 'info@bribiz.net',
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: '135 5th Ave S, Suite 240',
+    addressLocality: 'Franklin',
+    addressRegion: 'TN',
+    postalCode: '37064',
+    addressCountry: 'US',
+  },
+  geo: {
+    '@type': 'GeoCoordinates',
+    latitude: 35.9227623,
+    longitude: -86.8707736,
+  },
+  areaServed: [
+    { '@type': 'AdministrativeArea', name: 'Nashville Metropolitan Area' },
+    { '@type': 'Country', name: 'United States' },
+  ],
+  sameAs: [
+    'https://www.facebook.com/BriBiz-Entertainment-Business-Management-353498004663607/',
+    'https://www.linkedin.com/in/brian-smith-83629727/',
+    'https://www.twitter.com/officialbribiz',
+    'https://www.instagram.com/bribizmgmt/',
+  ],
+};
+
+const breadcrumbs = breadcrumbName
+  ? {
+      '@context': 'https://schema.org',
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Home', item: Astro.site?.href },
+        { '@type': 'ListItem', position: 2, name: breadcrumbName, item: canonical.href },
+      ],
+    }
+  : null;
+
+const allSchema = [organization, ...(breadcrumbs ? [breadcrumbs] : []), ...schema];
 ---
 
 <!doctype html>
@@ -24,10 +85,16 @@ const ogImageUrl = new URL(ogImage ?? logo.src, Astro.site);
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="preload" as="font" type="font/woff2" href={arsenal400} crossorigin />
+    <link rel="preload" as="font" type="font/woff2" href={arsenal700} crossorigin />
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
-    <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <meta name="theme-color" content="#F89A32" />
     <link rel="sitemap" href="/sitemap-index.xml" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
@@ -36,6 +103,12 @@ const ogImageUrl = new URL(ogImage ?? logo.src, Astro.site);
     <meta property="og:image" content={ogImageUrl} />
     <meta property="og:site_name" content="BriBiz" />
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImageUrl} />
+    {allSchema.map((obj) => (
+      <script type="application/ld+json" set:html={JSON.stringify(obj)} />
+    ))}
   </head>
   <body>
     <Header />

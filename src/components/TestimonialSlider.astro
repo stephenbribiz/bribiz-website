@@ -46,13 +46,13 @@ const testimonials = [
           </figcaption>
         </figure>
       ))}
-      <div class="slider-dots" role="tablist" aria-label="Testimonials">
+      <div class="slider-dots" role="group" aria-label="Testimonials">
         {testimonials.map((t, i) => (
           <button
             data-dot
             class:list={['dot', { active: i === 0 }]}
             aria-label={`Show testimonial from ${t.name}`}
-          ></button>
+          ><span class="dot-fill"></span></button>
         ))}
       </div>
     </div>
@@ -142,15 +142,26 @@ const testimonials = [
     margin-top: 32px;
   }
 
+  /* 28px touch target wrapping a 12px visual dot (WCAG target-size) */
   .dot {
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
+    width: 28px;
+    height: 28px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     border: none;
-    background: var(--color-border);
+    background: none;
     cursor: pointer;
     padding: 0;
   }
 
-  .dot.active { background: var(--color-orange); }
+  .dot-fill {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--color-border);
+    transition: background 0.2s ease;
+  }
+
+  .dot.active .dot-fill { background: var(--color-orange); }
 </style>

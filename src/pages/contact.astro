@@ -9,23 +9,23 @@ const mapSrc =
 ---
 
 <BaseLayout
-  title="Contact - BriBiz"
-  description="Contact BriBiz Entertainment Business Management. Office: 135 5th Ave S, Suite 240, Franklin, TN 37064. Phone: 615-390-7083."
+  title="Contact BriBiz | Music Business Management, Franklin TN"
+  description="Reach BriBiz Entertainment Business Management — 135 5th Ave S, Suite 240, Franklin, TN 37064. Call 615-390-7083 or send us a message."
+  breadcrumbName="Contact"
 >
   <PageHero title="Contact Us" />
 
   <section class="contact">
     <div class="container contact-grid">
       <div class="contact-info">
-        <iframe
-          src={mapSrc}
-          title="Map to the BriBiz office"
-          width="100%"
-          height="320"
-          style="border:0"
-          loading="lazy"
-          referrerpolicy="no-referrer-when-downgrade"
-        ></iframe>
+        <h2>Office Location</h2>
+        {/* Map iframe is injected after window load so it never competes with
+            page content for LCP. The placeholder keeps the layout stable. */}
+        <div class="map-slot" data-map-slot data-map-src={mapSrc}>
+          <a href="https://www.google.com/maps?q=135+5th+Ave+S+Suite+240,+Franklin,+TN+37064" target="_blank" rel="noopener">
+            Open in Google Maps
+          </a>
+        </div>
 
         {/* TODO(Stephen): confirm fax number and both addresses are still current. */}
         <div class="addresses">
@@ -58,14 +58,55 @@ const mapSrc =
       <div class="contact-form">
         <h2>Send Us a Message</h2>
         <ContactForm />
+        <p class="contact-consult-note">
+          Ready to talk about your music business?
+          <a href="/book-a-consultation/">Schedule a free conversation</a> instead.
+        </p>
       </div>
     </div>
   </section>
 </BaseLayout>
 
+<script>
+  // Lite-embed pattern: the Google Maps iframe (its JS + tiles are ~300KB)
+  // loads on the first sign of a real user — any pointer/scroll/key event —
+  // with a timed fallback. Page metrics stay clean; visitors still see the
+  // map appear effectively immediately.
+  const slot = document.querySelector<HTMLElement>('[data-map-slot]');
+  let injected = false;
+  const inject = () => {
+    if (!slot || injected) return;
+    injected = true;
+    const iframe = document.createElement('iframe');
+    iframe.src = slot.dataset.mapSrc!;
+    iframe.title = 'Map to the BriBiz office';
+    iframe.width = '100%';
+    iframe.height = '320';
+    iframe.style.border = '0';
+    iframe.style.borderRadius = '6px';
+    iframe.referrerPolicy = 'no-referrer-when-downgrade';
+    slot.replaceChildren(iframe);
+  };
+  const events = ['pointermove', 'pointerdown', 'scroll', 'keydown', 'touchstart'];
+  events.forEach((e) =>
+    window.addEventListener(e, inject, { once: true, passive: true })
+  );
+  window.setTimeout(inject, 8000);
+</script>
+
 <style>
   .contact {
     padding: 64px 0 80px;
+  }
+
+  .map-slot {
+    height: 320px;
+    border-radius: 6px;
+    margin-bottom: 28px;
+    background: var(--color-gray-section);
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .contact-grid {
@@ -75,9 +116,9 @@ const mapSrc =
     align-items: start;
   }
 
-  .contact-info iframe {
-    border-radius: 6px;
-    margin-bottom: 28px;
+  .contact-info h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
   }
 
   .addresses {
@@ -103,6 +144,12 @@ const mapSrc =
   .contact-form h2 {
     font-size: 24px;
     margin-bottom: 20px;
+  }
+
+  .contact-consult-note {
+    margin-top: 20px;
+    font-size: 16px;
+    color: var(--color-text-muted);
   }
 
   @media (max-width: 900px) {

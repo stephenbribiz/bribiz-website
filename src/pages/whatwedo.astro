@@ -56,13 +56,15 @@ const services = [
 ---
 
 <BaseLayout
-  title="What We Do - BriBiz"
-  description="What does Creative-Friendly Business Management mean? We're passionate about delivering high-quality services to our clients, in a way that makes sense for them - because we've been in their shoes."
+  title="Business & Financial Management for Entertainers | BriBiz"
+  description="Financial management for artists: bookkeeping, cash flow, tour budgets, royalty reconciliation, copyright administration, tax planning, and wealth management."
+  breadcrumbName="What We Do"
 >
   <PageHero title="What We Do" />
 
   <section class="intro">
     <div class="container intro-inner">
+      <h2>Creative-Friendly Business Management</h2>
       <p>
         What does Creative-Friendly Business Management mean? Well, it means that
         we're passionate about delivering high-quality services to our clients, in
@@ -79,6 +81,7 @@ const services = [
 
   <section class="services">
     <div class="container">
+      <h2 class="section-heading">Our Services</h2>
       <div class="flip-grid">
         {services.map((service) => (
           <button class="flip-card" data-flip aria-expanded="false">
@@ -128,8 +131,18 @@ const services = [
     color: var(--color-text-muted);
   }
 
+  .intro-inner h2 {
+    font-size: 28px;
+    margin-bottom: 20px;
+  }
+
   .services {
     padding: 32px 0 56px;
+  }
+
+  .services .section-heading {
+    text-align: center;
+    margin-bottom: 28px;
   }
 
   .flip-grid {
@@ -179,7 +192,7 @@ const services = [
 
   .flip-front {
     background: var(--color-orange);
-    color: var(--color-white);
+    color: var(--color-text);
   }
 
   .flip-title {

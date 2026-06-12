@@ -67,9 +67,11 @@ const poster = await getImage({ src: posterSrc, width: 1600, format: 'webp' });
 </script>
 
 <style>
+  /* Proportions matched to the original: ~460px tall at 1440px wide,
+     scaling with viewport width rather than height. */
   .video-hero {
     position: relative;
-    min-height: 78vh;
+    min-height: clamp(380px, 32vw, 470px);
     display: flex;
     align-items: stretch;
     overflow: hidden;
@@ -93,22 +95,24 @@ const poster = await getImage({ src: posterSrc, width: 1600, format: 'webp' });
   }
 
   .video-hero-content {
-    max-width: 720px;
+    /* border-box: budget for the dynamic left padding plus ~640px of text */
+    max-width: calc(640px + max(24px, calc((100vw - var(--content-width)) / 2 + 24px)));
     margin: 0;
-    padding: 80px 24px 80px max(24px, calc((100vw - var(--content-width)) / 2 + 24px));
+    padding: 60px 24px 60px max(24px, calc((100vw - var(--content-width)) / 2 + 24px));
     color: var(--color-text);
   }
 
   .video-hero-content h1 {
     color: var(--color-text);
-    font-size: 56px;
-    margin-bottom: 16px;
+    font-size: 34px;
+    margin-bottom: 26px;
   }
 
   .video-hero-sub {
-    font-size: 24px;
-    line-height: 1.45;
-    margin-bottom: 32px;
+    font-size: 17px;
+    line-height: 1.5;
+    max-width: 480px;
+    margin-bottom: 34px;
     color: var(--color-text);
   }
 
@@ -120,6 +124,8 @@ const poster = await getImage({ src: posterSrc, width: 1600, format: 'webp' });
     display: block;
     max-width: 480px;
     text-align: center;
+    font-size: 16px;
+    padding: 17px 36px;
   }
 
   .video-hero-content :global(.btn-hero:hover) {
@@ -128,8 +134,9 @@ const poster = await getImage({ src: posterSrc, width: 1600, format: 'webp' });
   }
 
   @media (max-width: 800px) {
-    .video-hero { min-height: 64vh; }
-    .video-hero-content h1 { font-size: 36px; }
-    .video-hero-sub { font-size: 19px; }
+    .video-hero { min-height: 320px; }
+    .video-hero-content { padding-top: 48px; padding-bottom: 48px; }
+    .video-hero-content h1 { font-size: 28px; }
+    .video-hero-sub { font-size: 16px; }
   }
 </style>

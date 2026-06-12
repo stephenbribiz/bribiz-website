@@ -43,8 +43,7 @@ To confirm Google is digesting them:
 - **Higher-resolution logo**: the header logo source is 215×80px, which is why Lighthouse Best Practices sits at 96 instead of 100 (it can't serve a crisp 2x version for retina screens). Export the logo from the original design files at 430×160 (or as SVG) and drop it in as `src/assets/logo.png` / `logo-white.png` replacements.
 - **Web3Forms live test**: submit each form once on the production site and confirm delivery to stephen@bribiz.net + CC to brian@bribiz.net.
 - **Vercel Analytics**: free toggle in the Vercel dashboard if you want traffic data (the old UA Google Analytics was dead — it was never migrated to GA4).
-- **Social profiles**: the footer links to Facebook/LinkedIn/X/Instagram — make sure each profile links back to bribiz.net (consistent citations help local SEO).
-- **LinkedIn company page**: the LinkedIn sameAs in the site's structured data currently points to Brian's personal profile (that's what the old site linked). If BriBiz has a company page, tell Claude to swap it in `src/layouts/BaseLayout.astro`.
+- **Social profiles**: the site links to the LinkedIn company page and Instagram — make sure both profiles link back to bribiz.net (consistent citations help local SEO).
 - **Service pages**: a proposal for individual /services/* pages targeting niche search terms was drafted — decide whether to build them (they're the biggest remaining SEO upside).
 
 ## What's already handled in code (no action needed)

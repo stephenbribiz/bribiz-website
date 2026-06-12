@@ -1,19 +1,9 @@
 /** Social profiles shown in the header top bar and the footer. */
 export const socials = [
   {
-    label: 'Facebook',
-    href: 'https://www.facebook.com/BriBiz-Entertainment-Business-Management-353498004663607/',
-    path: 'M13.5 9H15V6h-1.5C11.57 6 10 7.57 10 9.5V11H8v3h2v7h3v-7h2.1l.4-3H13v-1.5c0-.28.22-.5.5-.5z',
-  },
-  {
     label: 'LinkedIn',
-    href: 'https://www.linkedin.com/in/brian-smith-83629727/',
+    href: 'https://www.linkedin.com/company/bribiz-entertainment-business-management-inc',
     path: 'M6.94 8.5A1.72 1.72 0 1 1 6.94 5a1.72 1.72 0 0 1 0 3.5zM5.5 10h2.88v9H5.5v-9zm4.62 0h2.76v1.23h.04c.38-.72 1.32-1.48 2.72-1.48 2.9 0 3.44 1.91 3.44 4.39V19h-2.88v-4.34c0-1.04-.02-2.37-1.45-2.37-1.45 0-1.67 1.13-1.67 2.3V19h-2.96v-9z',
-  },
-  {
-    label: 'X (Twitter)',
-    href: 'https://www.twitter.com/officialbribiz',
-    path: 'M17.53 6h2.1l-4.59 5.25L20.44 19h-4.23l-3.31-4.33L9.1 19H7l4.91-5.61L6.72 6h4.34l3 3.96L17.53 6zm-.74 11.74h1.16L10.43 7.2H9.18l7.61 10.54z',
   },
   {
     label: 'Instagram',

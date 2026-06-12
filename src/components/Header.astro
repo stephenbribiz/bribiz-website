@@ -123,6 +123,11 @@ const currentPath = Astro.url.pathname;
 
   .top-bar-socials a:hover { color: var(--color-white); }
 
+  @media (max-width: 480px) {
+    .top-bar-socials { display: none; }
+    .top-bar-inner { justify-content: center; }
+  }
+
   .main-bar-inner {
     display: flex;
     align-items: center;

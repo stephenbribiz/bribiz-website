@@ -1,17 +1,11 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import VideoHero from '../components/VideoHero.astro';
-import BlogTeaser from '../components/BlogTeaser.astro';
-import ConsultCta from '../components/ConsultCta.astro';
+import HomeConsultCta from '../components/HomeConsultCta.astro';
 import TestimonialSlider from '../components/TestimonialSlider.astro';
 import bgOrange from '../assets/backgrounds/bg-orange-overlay.jpg';
 import transWhiteTail from '../assets/backgrounds/trans-white-tail-l.png';
 import transWhiteArrow from '../assets/backgrounds/trans-white-arrow-r-f7.png';
-
-// The discontinued "Music & Money Newsletter" slot — Stephen picks the
-// replacement from the dev preview. 'A' = full-width blog teaser cards,
-// 'B' = blog + consultation CTA two-column layout.
-const NEWSLETTER_VARIANT: 'A' | 'B' = 'A';
 
 const businessServices = [
   'Bookkeeping & Accounts',
@@ -83,7 +77,7 @@ const financialServices = [
     <img src={transWhiteArrow.src} alt="" class="section-divider divider-bottom" />
   </section>
 
-  {NEWSLETTER_VARIANT === 'A' ? <BlogTeaser /> : <ConsultCta />}
+  <HomeConsultCta />
 
   <TestimonialSlider />
 </BaseLayout>
